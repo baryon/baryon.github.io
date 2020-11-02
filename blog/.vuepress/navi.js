@@ -8,7 +8,7 @@ module.exports = [
     link: "/tag/",
   },
   {
-    text: "GitHub",
-    link: "https://github.com/baryon",
+    text: "精通比特币SV",
+    link: "/MasterBitcoinSV",
   },
 ]

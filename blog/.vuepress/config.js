@@ -49,9 +49,14 @@ module.exports = {
         content: "LI Long",
       },
     ],
+    [ 'link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css', crossorigin: 'anonymous' } ],
+
+    [ 'link', { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css", integrity: "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X", crossorigin: "anonymous" } ]
   ],
   theme: "@vuepress/theme-blog",
   themeConfig: {
+    repo: 'https://github.com/baryon/baryon.github.io',
+    editLinks: true,
     nav,
     footer: {
       contact: [
@@ -195,6 +200,7 @@ module.exports = {
     extendMarkdown: md => {
       // use more markdown-it plugins!
       md.use(require('markdown-it-plantuml'))
+      md.use(require('markdown-it-task-lists'))
     }
   }
 
