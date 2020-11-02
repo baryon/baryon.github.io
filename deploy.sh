@@ -8,6 +8,8 @@ npm run build
 
 # 进入生成的文件夹
 cd blog/.vuepress/dist
+# 新建 CNAME 文件，并写入 lilong.net 域名
+echo lilong.net > CNAME
 
 # deploy to github
 if [ -z "$ACCESS_TOKEN" ]; then
@@ -21,10 +23,6 @@ else
 fi
 git init
 git add -A
-
-# 新建 CNAME 文件，并写入 lilong.net 域名
-echo lilong.net > CNAME
-
 git commit -m "${msg}"
 git push -f $githubUrl master:gh-pages # 推送到github
 
