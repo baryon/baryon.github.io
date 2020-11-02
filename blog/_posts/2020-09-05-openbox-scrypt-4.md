@@ -1,12 +1,16 @@
 ---
+
 title: 打开sCrypt的盒子（4）OP_PUSH_TX
 summary: OP_PUSH_TX以OP开始，但它不是比特币脚本的操作符，是一个将交易原像放入解锁脚本，从而判断新的输出是否符合规定的技术
-date: 2020-09-07 12:06:56
+date: 2020-09-05 17:37:13
 lang: zh
 tags: 
-  - 比特币
-  - sCrypt
+
+- 比特币
+- sCrypt
+
 ---
+
 sCrypt是比特币合约走出来的第一步。我们看看sCrypt创造的新技术：```OP_PUSH_TX```
 
 ```OP_PUSH_TX```以```OP```开始，但它不是比特币脚本的操作符，是一个将交易原像放入解锁脚本，从而判断新的输出是否符合规定的技术。
@@ -52,8 +56,6 @@ contract Counter {
 有趣的是```scriptCode```如何写入原像的(虽然同本文无关)。```scriptCode```用Varint格式保存锁定脚本。Varint是一个字符串的表现形式，基本上是一个header表明数据字节长度站几个字节，是1，2，4还是8，然后获取长度len，剩下的其余部分是数据。 一个很好的资料可以看 [https://learnmeabitcoin.com/technical/varint](https://learnmeabitcoin.com/technical/varint)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200905172914121.png#pic_center)
-
-
 
 然后从原像最后一个字节取出 counter ```00```, 加一，置换原像最后一个字节为 ```01```
 

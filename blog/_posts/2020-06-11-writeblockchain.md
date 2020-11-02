@@ -1,4 +1,5 @@
 ---
+
 title: 写一个区块链的概念原型
 summary: 一段代码演示了区块链的基本概念：区块，链，挖矿，难度
 date: 2020-06-11 16:00
@@ -6,6 +7,7 @@ lang: zh
 tags: 
 - 区块链
 - 运行环境
+
 ---
 
 # 一个区块链原型
@@ -161,4 +163,3 @@ console.log(blockchain.isValid())
 可以运行的代码库在：[https://github.com/baryon/blockchain-prototype](https://github.com/baryon/blockchain-prototype) 
 
 享受真正的比特币，使用 [Note.SV](https://Note.SV)
-

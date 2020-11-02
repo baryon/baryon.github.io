@@ -1,4 +1,5 @@
 ---
+
 title: 基于Baton UTXO和默克尔树的Token和Oracle方案
 summary: 使用比特币智能合约来验证数据状态变化.这种技术可以用于制作基于状态变化的Token，以及预言机（Oracle）。数据状态的正确性由比特币网络做验证。
 date: 2020-09-30 19:02:42
@@ -6,6 +7,7 @@ lang: zh
 tags: 
 - Token
 - 比特币
+
 ---
 成都程序员zhangweis发表了[一篇短文（Merkle tree proof based data storage）](https://powping.com/posts/c0d15afcba341178604327f1069200ac08f24603abd427b7d85c0e0f8ac04e2b)提出一种使用比特币智能合约来验证数据状态变化的方法。[sCrypt做了总结](https://medium.com/@xiaohuiliu/scalable-state-storage-in-bsv-smart-contracts-60f9aeb3b1f)。题目是BSV智能合约中可扩展的状态存储（Scalable State Storage in BSV Smart Contracts）。
 
