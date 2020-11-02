@@ -49,7 +49,7 @@ module.exports = {
         content: "LI Long",
       },
     ],
-    [ 'link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css', crossorigin: 'anonymous' } ],
+    // [ 'link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css', crossorigin: 'anonymous' } ],
 
     [ 'link', { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css", integrity: "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X", crossorigin: "anonymous" } ]
   ],
@@ -101,7 +101,7 @@ module.exports = {
       service: 'vssue',
       platform: "github",
       owner: "baryon",
-      repo: "blog",
+      repo: "baryon.github.io",
       clientId: "Iv1.f57a4abe2786be54",
       clientSecret: "62a146a09afb51188c829a8ec4adf6659c64f9ac",
     },
