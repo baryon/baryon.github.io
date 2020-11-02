@@ -15,14 +15,22 @@ tags:
 
 后来进化成微博，朋友圈，视频网站，短视频。看上去的流行趋势是
 
+
+
 ```mermaid
 graph LR
 id1(长文本)-->id2(短文本)-->id3(图片)-->id4(长视频)-->id5(短视频)-->id6(未来...)
 ```
 
+ 
+
 只是博客来说，已经不太流行，甚至当年流行的聚合格式feed rss.xml都已经没人用了。谷歌当年就停止了[Reader服务](https://www.google.com/reader/about/)
 
+
+
 最近要整理一些学习笔记，[比特币协会在CSDN有技术博客](https://bsv.csdn.net/)，我在里面写了一些东西，需要一个地方整理，所以开通Github Page。
+
+
 
 之前使用Gulp工具生成博客网页，这次重建发现了[GitHub - vuepress/vuepress-theme-blog: Default blog theme for VuePress.](https://github.com/vuepress/vuepress-theme-blog)
 
@@ -38,8 +46,10 @@ id1(长文本)-->id2(短文本)-->id3(图片)-->id4(长视频)-->id5(短视频)-
 
 - [x] 插入的图片不显示
   
-  图片一定要从当前目录的点开始， 比如 `./images/bsv-dragon.png` 没有点是不对的。vue使用loader会对图片正确处理。
+  图片一定要从当前目录的点开始， 比如 `./images/bsv-dragon.png`没有点是不对的。vue使用loader会对图片正确处理。
+ 
+  ![](./images/bsv-dragon.jpg)
 
-![](./images/bsv-dragon.jpg)
+-- [ ] 还有好几个坑，你信吗？不行就看源码吧
 
-- [ ] 还有好几个坑，你信吗？不行就看源码吧
+博客的发布使用了Github的Action Workflow
