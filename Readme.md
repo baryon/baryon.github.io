@@ -1,3 +1,1 @@
-# 李龍的博客
-
-https://lilong.net
+# 博客 https://lilong.net
