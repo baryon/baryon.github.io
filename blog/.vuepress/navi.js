@@ -8,6 +8,10 @@ module.exports = [
     link: "/tag/",
   },
   {
+    text: "打开sCrypt的盒子",
+    link: "/tag/sCrypt/",
+  },
+  {
     text: "精通比特币SV",
     link: "/MasterBitcoinSV/",
   },

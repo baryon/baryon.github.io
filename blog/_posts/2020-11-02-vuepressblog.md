@@ -67,3 +67,16 @@ id1(长文本)-->id2(短文本)-->id3(图片)-->id4(长视频)-->id5(短视频)-
 - [x] 开通vuess评论功能，要检查域名设置，要先创建issue，才能发布留言
 
 - [x] 创建github账号同名的repo，可以美化Github的Profile页面
+
+- [x] 为博客添加Adsense
+  只需要在`.vuepress/config.js`里head部分追加下面的代码。然后在adsense网站，选择自动显示广告
+  ```javscript
+    [
+      "script",
+      {
+        "data-ad-client": "ca-pub-2028497727822047",
+        async: true,
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      }
+    ]
+  ```
