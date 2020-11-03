@@ -87,11 +87,11 @@ module.exports = {
       copyright: [
         {
           text: "LI Long © 2020",
-          link: "",
+          link: "/about/",
         },
         {
           text: "Made with ❤",
-          link: "",
+          link: "/",
         },
         {
           text: "CC BY-NC-SA 2.5",
@@ -142,7 +142,6 @@ module.exports = {
       '@vuepress/last-updated',
       {
         transformer: (timestamp, lang) => {
-          // Don't forget to install moment yourself
           return (new Date(timestamp)).toISOString()
         }
       }
