@@ -1,5 +1,5 @@
 ---
-title: Hello，我是 李龍
+title: 关于
 date: 2020-10-31 11:38:46
 categories: 
   - about
@@ -7,11 +7,11 @@ tags:
   - 
 ---
 
-# Hello，我是 李龍
+## Hello，我是 李龍
 
 **Young, Simple, Naive**
 
-## 关于我
+### 关于我
 
 - 生活工作在日本的程序员
 - 开了几家公司**但都不赚钱**，纯真地搞技术
