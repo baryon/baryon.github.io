@@ -10,6 +10,9 @@ tags:
 ---
 
 # 用Vuepress Blog创建博客
+<ClientOnly>
+  <CallAdsense />
+</ClientOnly>
 
 踩了一个大坑啊! 利用周末创建了一下Github Page，将个人域名 lilong.net 激活了。
 
@@ -36,6 +39,10 @@ id1(长文本)-->id2(短文本)-->id3(图片)-->id4(长视频)-->id5(短视频)-
 之前使用Gulp工具生成博客网页，这次重建发现了[GitHub - vuepress/vuepress-theme-blog: Default blog theme for VuePress.](https://github.com/vuepress/vuepress-theme-blog)
 
 确实是好东西，但实际操作起来，好多坑。也可以说是这个系统的bug
+
+<ClientOnly>
+  <CallArticleAdsense />
+</ClientOnly>
 
 - [x] 博客内代码的高亮显示错误地显示了 大于等于号（ >= ）和不等号 ( != ) 
   

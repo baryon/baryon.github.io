@@ -51,13 +51,25 @@ module.exports = {
     ],
     // [ 'link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css', crossorigin: 'anonymous' } ],
 
-    [ 'link', { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css", integrity: "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X", crossorigin: "anonymous" } ]
+    [ 'link', { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css", integrity: "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X", crossorigin: "anonymous" } ],
+
+    [
+      "script",
+      {
+        "data-ad-client": "ca-pub-2028497727822047",
+        async: true,
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      }
+    ]
   ],
   theme: "@vuepress/theme-blog",
   themeConfig: {
     repo: 'https://github.com/baryon/baryon.github.io',
     editLinks: true,
     nav,
+    components: {
+      afterPage: 'MyAfterPage'
+    },
     footer: {
       contact: [
         {
@@ -91,9 +103,9 @@ module.exports = {
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#sitemap
      */
-    // sitemap: {
-    //   hostname: 'https://example.vuepress-theme-blog.ulivz.com/'
-    // },
+    sitemap: {
+      hostname: 'https://lilong.net/'
+    },
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#comment
      */
@@ -114,9 +126,9 @@ module.exports = {
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#feed
      */
-    // feed: {
-    //   canonical_base: 'https://lilong.net/',
-    // },
+    feed: {
+      canonical_base: 'https://lilong.net/',
+    },
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#smoothscroll
      */
