@@ -1,7 +1,5 @@
 
 const nav = require("./navi")
-const dayjs = require('dayjs')
-require('dayjs/locale/zh-cn')
 
 module.exports = {
   title: "重粒子空间",
