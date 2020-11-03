@@ -21,6 +21,7 @@
     "@vuepress/plugin-google-analytics": "^1.0.0",
     "@vuepress/plugin-medium-zoom": "^1.7.1",
     "@vuepress/theme-blog": "^2.2.0",
+    "dayjs": "^1.9.4",
     "markdown-it-plantuml": "^1.4.1",
     "markdown-it-task-lists": "^2.1.1",
     "vue-class-component": "^7.2.6",

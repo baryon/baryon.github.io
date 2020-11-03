@@ -1,5 +1,7 @@
 
 const nav = require("./navi")
+const dayjs = require('dayjs')
+require('dayjs/locale/zh-cn')
 
 module.exports = {
   title: "重粒子空间",
@@ -64,8 +66,7 @@ module.exports = {
   ],
   theme: "@vuepress/theme-blog",
   themeConfig: {
-    repo: 'https://github.com/baryon/baryon.github.io',
-    editLinks: true,
+    dateFormat: 'YYYY-MM-DD h:mm A',
     nav,
     components: {
       afterPage: 'MyAfterPage'
@@ -139,6 +140,15 @@ module.exports = {
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
   plugins: [
+    [
+      '@vuepress/last-updated',
+      {
+        transformer: (timestamp, lang) => {
+          // Don't forget to install moment yourself
+          return (new Date(timestamp)).toISOString()
+        }
+      }
+    ],
     ['one-click-copy', {
         copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'],
         copyMessage: '拷贝完成', // default is 'Copy successfully and then paste it for use.'

@@ -80,3 +80,17 @@ id1(长文本)-->id2(短文本)-->id3(图片)-->id4(长视频)-->id5(短视频)-
       }
     ]
   ```
+- [x] 在生成sitemap时发生日期格式错误
+  原因是`@vuepress/last-updated`这个插件返回的数据不是ISO格式，被sitemap插件解释的时候出错。
+  只需要在`.vuepress/config.js`里plugin部分追加下面的代码。
+  ```javscript
+    [
+      '@vuepress/last-updated',
+      {
+        transformer: (timestamp, lang) => {
+          // Don't forget to install moment yourself
+          return (new Date(timestamp)).toISOString()
+        }
+      }
+    ],
+  ```
