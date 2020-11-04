@@ -13,6 +13,6 @@ module.exports = [
   },
   {
     text: "精通比特币SV",
-    link: "/MasterBitcoinSV/",
+    link: "https://lilong.net/MasterBitcoinSV/",
   },
 ]
