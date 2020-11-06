@@ -3,6 +3,8 @@
 title: 用Vuepress Blog创建博客
 summary: 各种坑，冒然踩了一下
 date: 2020-11-02 22:30
+img: ./images/bsv-dragon.jpg
+category: 杂记
 tags:
 - 博客
 - vuepress
