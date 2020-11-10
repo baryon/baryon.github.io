@@ -8,7 +8,7 @@ tags:
 
 ---
 
-昨天夜间，BSV bot的作者[zhouquan](https://aaron67.cc/)遭遇了可怕的大量币丢失事件。
+昨天夜间，BSV bot的作者([我被盗了 600 BSV | aaron67's log](https://aaron67.cc/2020/11/08/lost-600-bsv/)遭遇了可怕的大量币丢失事件。
 
 这是黑客盗取的交易
 https://whatsonchain.com/tx/20adad8bd4cc694cfed4ccadff911433601e55b0f8779e839bc6579cb8d234f9
@@ -46,8 +46,8 @@ https://whatsonchain.com/tx/20adad8bd4cc694cfed4ccadff911433601e55b0f8779e839bc6
 | **24** | OP_ENDIF                                 |                     |                     |                                                   |
 | **25** | OP_2                                     | 2                   | 0                   | 最少需要的公钥数量                                         |
 | **26** | OP_FROMALTSTACK                          | 2 0                 |                     | 从栈数据移入主栈                                          |
-| **27** | OP_GREATERTHANOREQUAL      | TRUE                |                     | 最少需要的数量是否小于解锁的公钥数量（这里有错误？应该为 OP_LESSTHANOREQUAL ） |
+| **27** | OP_GREATERTHANOREQUAL                    | TRUE                |                     | 最少需要的数量是否小于解锁的公钥数量（这里有错误？应该为 OP_LESSTHANOREQUAL ） |
 
-最后的一行出BUG了。
+最后的一行出BUG了。脚本完整的分析见[PDF](https://aaron67-public.oss-cn-beijing.aliyuncs.com/notesv-bug-analysis-multisig-accumulator.pdf)
 
 经推测经纬是，andy写了个多签原型，里面有个条件比较的bug。然后esv没有仔细测试，就作为产品发布了。aaron喜欢新鲜事物，小笔尝试了一下，没问题。大笔存入，一个小时后，黑客出现，挥挥手拿走，不留一分[捂脸]
