@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>实战比特币脚本编程（1）两段 | 重粒子空间</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&amp;display=swap">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script data-ad-client="ca-pub-2028497727822047" async="true" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="alternate" type="application/rss+xml" href="https://lilong.net/rss.xml" title="重粒子空间 RSS Feed">
+    <meta name="description" content="废话不多说，直接看程序，只需基础的程序知识就可以理解">
+    <meta property="article:published_time" content="2020-09-13T17:14:18.000Z">
+    <meta property="article:modified_time" content="2020-11-03T04:50:00.000Z">
+    <meta property="og:site_name" content="重粒子空间">
+    <meta property="og:title" content="实战比特币脚本编程（1）两段">
+    <meta property="og:description" content="废话不多说，直接看程序，只需基础的程序知识就可以理解">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/2020/09/13/start-bitcoinscript-1/">
+    <meta name="twitter:title" content="实战比特币脚本编程（1）两段">
+    <meta name="twitter:description" content="废话不多说，直接看程序，只需基础的程序知识就可以理解">
+    <meta name="twitter:url" content="/2020/09/13/start-bitcoinscript-1/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="比特币, Bitcoin Script, mini_forth">
+    <meta property="article:tag" content="比特币">
+    <meta name="keywords" content="李龙,李龍,baryon,bitcoin,比特币,BSV">
+    <meta name="author" content="LI Long">
+    
+    <link rel="preload" href="/assets/css/0.styles.a7e336af.css" as="style"><link rel="preload" href="/assets/js/app.abf5d3ec.js" as="script"><link rel="preload" href="/assets/js/8.ce1c8cc9.js" as="script"><link rel="preload" href="/assets/js/3.414e57ad.js" as="script"><link rel="preload" href="/assets/js/29.e7e365f1.js" as="script"><link rel="prefetch" href="/assets/js/10.3c652f80.js"><link rel="prefetch" href="/assets/js/11.3031be9d.js"><link rel="prefetch" href="/assets/js/12.f36c79bc.js"><link rel="prefetch" href="/assets/js/13.f2b3627c.js"><link rel="prefetch" href="/assets/js/14.30835e3c.js"><link rel="prefetch" href="/assets/js/15.30714548.js"><link rel="prefetch" href="/assets/js/16.d18f6acc.js"><link rel="prefetch" href="/assets/js/17.37713c96.js"><link rel="prefetch" href="/assets/js/18.0456b1fb.js"><link rel="prefetch" href="/assets/js/19.df061aac.js"><link rel="prefetch" href="/assets/js/20.b671335a.js"><link rel="prefetch" href="/assets/js/21.d39d13fd.js"><link rel="prefetch" href="/assets/js/22.22289641.js"><link rel="prefetch" href="/assets/js/23.9682cf79.js"><link rel="prefetch" href="/assets/js/24.b56b4a09.js"><link rel="prefetch" href="/assets/js/25.e10fe55e.js"><link rel="prefetch" href="/assets/js/26.7960b5af.js"><link rel="prefetch" href="/assets/js/27.c18b8ae0.js"><link rel="prefetch" href="/assets/js/28.13d07b15.js"><link rel="prefetch" href="/assets/js/30.e2b7212a.js"><link rel="prefetch" href="/assets/js/31.0a61aa61.js"><link rel="prefetch" href="/assets/js/32.399fd60a.js"><link rel="prefetch" href="/assets/js/33.102e2538.js"><link rel="prefetch" href="/assets/js/34.a2a0eb8a.js"><link rel="prefetch" href="/assets/js/35.fd54c5ac.js"><link rel="prefetch" href="/assets/js/36.7824120d.js"><link rel="prefetch" href="/assets/js/37.0fd00712.js"><link rel="prefetch" href="/assets/js/38.5a9b40ff.js"><link rel="prefetch" href="/assets/js/39.64725c25.js"><link rel="prefetch" href="/assets/js/4.5d973e8f.js"><link rel="prefetch" href="/assets/js/40.086e3669.js"><link rel="prefetch" href="/assets/js/41.fb9be79b.js"><link rel="prefetch" href="/assets/js/42.2ad9a948.js"><link rel="prefetch" href="/assets/js/43.99993d3a.js"><link rel="prefetch" href="/assets/js/44.42442c0d.js"><link rel="prefetch" href="/assets/js/45.b0dc0368.js"><link rel="prefetch" href="/assets/js/46.3e03bbf4.js"><link rel="prefetch" href="/assets/js/47.cef55138.js"><link rel="prefetch" href="/assets/js/48.bfadcecc.js"><link rel="prefetch" href="/assets/js/49.da0ca54b.js"><link rel="prefetch" href="/assets/js/5.a325b366.js"><link rel="prefetch" href="/assets/js/50.e2220d6e.js"><link rel="prefetch" href="/assets/js/51.39a541e6.js"><link rel="prefetch" href="/assets/js/52.b0cc67f4.js"><link rel="prefetch" href="/assets/js/53.0ad26773.js"><link rel="prefetch" href="/assets/js/54.4c3c30c6.js"><link rel="prefetch" href="/assets/js/55.6f14161b.js"><link rel="prefetch" href="/assets/js/56.ece3c07b.js"><link rel="prefetch" href="/assets/js/57.9efa525e.js"><link rel="prefetch" href="/assets/js/58.0b439759.js"><link rel="prefetch" href="/assets/js/59.8dc823c7.js"><link rel="prefetch" href="/assets/js/6.307deff6.js"><link rel="prefetch" href="/assets/js/60.15e33e41.js"><link rel="prefetch" href="/assets/js/61.b136f576.js"><link rel="prefetch" href="/assets/js/62.f4d9c125.js"><link rel="prefetch" href="/assets/js/7.75ec5eb7.js"><link rel="prefetch" href="/assets/js/9.3cace592.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.851a26a5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a7e336af.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/" class="nav-link home-link">重粒子空间 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/about/" class="nav-link">关于</a></li><li class="nav-item"><a href="/tag/" class="nav-link">标签</a></li><li class="nav-item"><a href="/tag/比特币开发指南/" class="nav-link">比特币开发指南</a></li><li class="nav-item"><a href="/tag/sCrypt/" class="nav-link">打开sCrypt的盒子</a></li><li class="nav-item"><a href="https://lilong.net/MasterBitcoinSV/" target="_blank" rel="noopener noreferrer" class="nav-link external">精通比特币SV</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/" class="nav-link mobile-home-link">重粒子空间 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/about/" class="nav-link">关于</a></li><li class="mobile-nav-item"><a href="/tag/" class="nav-link">标签</a></li><li class="mobile-nav-item"><a href="/tag/比特币开发指南/" class="nav-link">比特币开发指南</a></li><li class="mobile-nav-item"><a href="/tag/sCrypt/" class="nav-link">打开sCrypt的盒子</a></li><li class="mobile-nav-item"><a href="https://lilong.net/MasterBitcoinSV/" target="_blank" rel="noopener noreferrer" class="nav-link external">精通比特币SV</a></li> <li class="mobile-nav-item"><a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        实战比特币脚本编程（1）两段
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2020-09-13T17:14:18.000Z">
+      2020-09-13 5:14 PM
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/tag/比特币" data-v-42ccfcd5><span data-v-42ccfcd5>比特币</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/Bitcoin Script" data-v-42ccfcd5><span data-v-42ccfcd5>Bitcoin Script</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/mini_forth" data-v-42ccfcd5><span data-v-42ccfcd5>mini_forth</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h2 id="比特币脚本执行环境"><a href="#比特币脚本执行环境" class="header-anchor">#</a> 比特币脚本执行环境</h2> <p>比特币提供一种程序执行环境，它有</p> <ul><li>分割为两段的脚本</li> <li>多个脚本操作符</li> <li>两个栈，叫做主栈(MainStack)和从栈(AltStack)</li></ul> <p>废话不多说，直接看程序，只需基础的程序知识就可以理解。</p> <h2 id="两段脚本"><a href="#两段脚本" class="header-anchor">#</a> 两段脚本</h2> <p>下面一段完整的脚本执行<code>2+3=5</code></p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_2
+OP_3
+OP_ADD
+OP_5
+OP_EQUAL
+</code></pre></div><p>这是一种基于栈的计算方式。猜测就可以知道写的<code>2 3 + 5 =</code></p> <p>这种没有括号，数字在前面，操作符在后面的写法叫做逆波兰表达式。有人说这证明了中本聪是日本人，因为日语就是 名词在前面，动词在后面。其实计算机在解释编译数学表达式，程序语言的时候都使用的这种方式。</p> <p>在比特币中分割这个脚本为下面两段，一个叫做解锁脚本，一个叫做锁定脚本。</p> <p>第一段</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_2
+</code></pre></div><p>第二段</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_3
+OP_ADD
+OP_5
+OP_EQUAL
+</code></pre></div><p>第一段叫做解锁脚本，第二段叫做锁定脚本。</p> <p><strong>锁定脚本的意思是：什么东西加上3等于5？</strong></p> <p><strong>解锁脚本回答：2</strong></p> <p>解锁脚本同锁定脚本连起来结果为“真”，说明解锁成功。</p> <p>这里的解锁脚本答案显然是唯一的，只有2加3才为5。</p> <h2 id="第二种分法"><a href="#第二种分法" class="header-anchor">#</a> 第二种分法</h2> <p>第一段解锁脚本</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_2
+OP_3
+</code></pre></div><p>第二段锁定脚本</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_ADD
+OP_5
+OP_EQUAL
+</code></pre></div><p><strong>锁定脚本的意思是：哪两个数加起来等于5？</strong></p> <p><strong>这时候就有多个答案</strong>，<code>2+3=5</code>， <code>3+2=5</code>， <code>1+4=5</code>，<code>4+1=5</code>，<code>0+5=5</code>， <code>5+0=5</code>，这些都是答案</p> <p>所以解锁脚本就可以有6种，比如 <code>1+4=5</code></p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_1
+OP_4
+</code></pre></div><h2 id="第三种分法"><a href="#第三种分法" class="header-anchor">#</a> 第三种分法</h2> <p>第一段解锁脚本</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_2
+OP_3
+OP_ADD
+</code></pre></div><p>第二段锁定脚本</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_5
+OP_EQUAL
+</code></pre></div><p><strong>锁定脚本的意思是：什么东西等于5？</strong></p> <p>显然5等于5，而不是第一段的<code>2+3</code>，最简单的解锁脚本是</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_5
+</code></pre></div><p>合起来运行就是</p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_5
+OP_5
+OP_EQUAL
+</code></pre></div><p>第一段的<code>2+3</code>说明解锁可以是个函数，甚至很复杂，只要结果等于<code>5</code>，解锁脚本可以是任何东西。比如<code>6-4+3=5</code></p> <div class="language-plain extra-class"><pre class="language-text"><code>OP_6
+OP_4
+OP_SUB
+OP_3
+OP_ADD
+</code></pre></div><h2 id="换一种语言"><a href="#换一种语言" class="header-anchor">#</a> 换一种语言</h2> <p>上面的脚本使用原生的比特币脚本关键字，不容易记忆理解。下面使用forth语言重写。</p> <div class="language-plain extra-class"><pre class="language-text"><code>: main 
+  1 2 +
+  5 =
+  ;
+</code></pre></div><p>上面的程序使用<a href="https://github.com/Ljzn/mini_forth" target="_blank" rel="noopener noreferrer">mini forth<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>语法书写。</p> <blockquote><p><code>: main</code>表示：主函数，程序从main函数开始执行
+<code>1 2 +</code>表示：进行 1+2操作
+<code>5 =</code>表示：判断是否等于5
+<code>;</code>表示：函数结束</p></blockquote> <h3 id="改成两段脚本"><a href="#改成两段脚本" class="header-anchor">#</a> 改成两段脚本</h3> <div class="language-plain extra-class"><pre class="language-text"><code>: unlock
+  2 3
+  ;
+: locking
+  + 5 =
+  ;
+: main
+  unlock
+  locking
+  ;
+</code></pre></div><p>上面的程序创造了两个函数，unlock是解锁函数，locking是锁定函数。</p> <blockquote><p>main函数顺序调用解锁和锁定两个函数，将把两个函数连接在一起执行。
+locking函数表示“哪两个数加起来等于5？”
+unlock函数提供了2和3两个数字</p></blockquote> <p>显然<strong>locking的函数语义用其他的高级语言难以描述</strong>。这就是forth语言的奇妙之处。</p> <h3 id="解锁函数"><a href="#解锁函数" class="header-anchor">#</a> 解锁函数</h3> <div class="language-plain extra-class"><pre class="language-text"><code>: unlock
+  6 4 -
+  3 +
+  ;
+: locking
+  5 =
+  ;
+: main
+  unlock
+  locking
+  ;
+</code></pre></div><p>这段代码实现了 <code>6-4+3=5</code>
+解锁脚本不只是数据，而是一个函数， 解锁代码提供了<code>6-4+3</code>这个答案。</p> <blockquote><p>享受比特币带来的安全自由， 关注使用<a href="https://note.sv" target="_blank" rel="noopener noreferrer">NoteSV<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#比特币脚本执行环境" title="比特币脚本执行环境">比特币脚本执行环境</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#两段脚本" title="两段脚本">两段脚本</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#第二种分法" title="第二种分法">第二种分法</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#第三种分法" title="第三种分法">第三种分法</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#换一种语言" title="换一种语言">换一种语言</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#改成两段脚本" title="改成两段脚本">改成两段脚本</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#解锁函数" title="解锁函数">解锁函数</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/baryon" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="mailto:lilong@gmail.com" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail" data-v-3d9deeb8><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-v-3d9deeb8></path><polyline points="22,6 12,13 2,6" data-v-3d9deeb8></polyline></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="https://twitter.com/lilong" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter" data-v-3d9deeb8><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="/about/" class="nav-link" data-v-3d9deeb8>LI Long © 2020</a></li><li class="copyright-item" data-v-3d9deeb8><a href="/" class="nav-link" data-v-3d9deeb8>Made with ❤</a></li><li class="copyright-item" data-v-3d9deeb8><a href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>CC BY-NC-SA 2.5</a></li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.abf5d3ec.js" defer></script><script src="/assets/js/8.ce1c8cc9.js" defer></script><script src="/assets/js/3.414e57ad.js" defer></script><script src="/assets/js/29.e7e365f1.js" defer></script>
+  </body>
+</html>

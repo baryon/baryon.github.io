@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>例子 - Transactions 交易 | 重粒子空间</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&amp;display=swap">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script data-ad-client="ca-pub-2028497727822047" async="true" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="alternate" type="application/rss+xml" href="https://lilong.net/rss.xml" title="重粒子空间 RSS Feed">
+    <meta name="description" content="创建交易是大多数比特币应用程序所做的事情。本节描述如何使用比特币核心的 RPC 接口创建具有各种属性的交易。">
+    <meta property="article:published_time" content="2020-11-03T03:00:00.000Z">
+    <meta property="article:modified_time" content="2020-11-11T02:30:57.000Z">
+    <meta property="og:site_name" content="重粒子空间">
+    <meta property="og:title" content="例子 - Transactions 交易">
+    <meta property="og:description" content="创建交易是大多数比特币应用程序所做的事情。本节描述如何使用比特币核心的 RPC 接口创建具有各种属性的交易。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/2020/11/03/_03-transactions/">
+    <meta name="twitter:title" content="例子 - Transactions 交易">
+    <meta name="twitter:description" content="创建交易是大多数比特币应用程序所做的事情。本节描述如何使用比特币核心的 RPC 接口创建具有各种属性的交易。">
+    <meta name="twitter:url" content="/2020/11/03/_03-transactions/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="比特币, 翻译, 比特币开发指南">
+    <meta property="article:tag" content="比特币">
+    <meta name="keywords" content="李龙,李龍,baryon,bitcoin,比特币,BSV">
+    <meta name="author" content="LI Long">
+    
+    <link rel="preload" href="/assets/css/0.styles.a7e336af.css" as="style"><link rel="preload" href="/assets/js/app.abf5d3ec.js" as="script"><link rel="preload" href="/assets/js/8.ce1c8cc9.js" as="script"><link rel="preload" href="/assets/js/3.414e57ad.js" as="script"><link rel="preload" href="/assets/js/36.7824120d.js" as="script"><link rel="prefetch" href="/assets/js/10.3c652f80.js"><link rel="prefetch" href="/assets/js/11.3031be9d.js"><link rel="prefetch" href="/assets/js/12.f36c79bc.js"><link rel="prefetch" href="/assets/js/13.f2b3627c.js"><link rel="prefetch" href="/assets/js/14.30835e3c.js"><link rel="prefetch" href="/assets/js/15.30714548.js"><link rel="prefetch" href="/assets/js/16.d18f6acc.js"><link rel="prefetch" href="/assets/js/17.37713c96.js"><link rel="prefetch" href="/assets/js/18.0456b1fb.js"><link rel="prefetch" href="/assets/js/19.df061aac.js"><link rel="prefetch" href="/assets/js/20.b671335a.js"><link rel="prefetch" href="/assets/js/21.d39d13fd.js"><link rel="prefetch" href="/assets/js/22.22289641.js"><link rel="prefetch" href="/assets/js/23.9682cf79.js"><link rel="prefetch" href="/assets/js/24.b56b4a09.js"><link rel="prefetch" href="/assets/js/25.e10fe55e.js"><link rel="prefetch" href="/assets/js/26.7960b5af.js"><link rel="prefetch" href="/assets/js/27.c18b8ae0.js"><link rel="prefetch" href="/assets/js/28.13d07b15.js"><link rel="prefetch" href="/assets/js/29.e7e365f1.js"><link rel="prefetch" href="/assets/js/30.e2b7212a.js"><link rel="prefetch" href="/assets/js/31.0a61aa61.js"><link rel="prefetch" href="/assets/js/32.399fd60a.js"><link rel="prefetch" href="/assets/js/33.102e2538.js"><link rel="prefetch" href="/assets/js/34.a2a0eb8a.js"><link rel="prefetch" href="/assets/js/35.fd54c5ac.js"><link rel="prefetch" href="/assets/js/37.0fd00712.js"><link rel="prefetch" href="/assets/js/38.5a9b40ff.js"><link rel="prefetch" href="/assets/js/39.64725c25.js"><link rel="prefetch" href="/assets/js/4.5d973e8f.js"><link rel="prefetch" href="/assets/js/40.086e3669.js"><link rel="prefetch" href="/assets/js/41.fb9be79b.js"><link rel="prefetch" href="/assets/js/42.2ad9a948.js"><link rel="prefetch" href="/assets/js/43.99993d3a.js"><link rel="prefetch" href="/assets/js/44.42442c0d.js"><link rel="prefetch" href="/assets/js/45.b0dc0368.js"><link rel="prefetch" href="/assets/js/46.3e03bbf4.js"><link rel="prefetch" href="/assets/js/47.cef55138.js"><link rel="prefetch" href="/assets/js/48.bfadcecc.js"><link rel="prefetch" href="/assets/js/49.da0ca54b.js"><link rel="prefetch" href="/assets/js/5.a325b366.js"><link rel="prefetch" href="/assets/js/50.e2220d6e.js"><link rel="prefetch" href="/assets/js/51.39a541e6.js"><link rel="prefetch" href="/assets/js/52.b0cc67f4.js"><link rel="prefetch" href="/assets/js/53.0ad26773.js"><link rel="prefetch" href="/assets/js/54.4c3c30c6.js"><link rel="prefetch" href="/assets/js/55.6f14161b.js"><link rel="prefetch" href="/assets/js/56.ece3c07b.js"><link rel="prefetch" href="/assets/js/57.9efa525e.js"><link rel="prefetch" href="/assets/js/58.0b439759.js"><link rel="prefetch" href="/assets/js/59.8dc823c7.js"><link rel="prefetch" href="/assets/js/6.307deff6.js"><link rel="prefetch" href="/assets/js/60.15e33e41.js"><link rel="prefetch" href="/assets/js/61.b136f576.js"><link rel="prefetch" href="/assets/js/62.f4d9c125.js"><link rel="prefetch" href="/assets/js/7.75ec5eb7.js"><link rel="prefetch" href="/assets/js/9.3cace592.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.851a26a5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a7e336af.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/" class="nav-link home-link">重粒子空间 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/about/" class="nav-link">关于</a></li><li class="nav-item"><a href="/tag/" class="nav-link">标签</a></li><li class="nav-item"><a href="/tag/比特币开发指南/" class="nav-link">比特币开发指南</a></li><li class="nav-item"><a href="/tag/sCrypt/" class="nav-link">打开sCrypt的盒子</a></li><li class="nav-item"><a href="https://lilong.net/MasterBitcoinSV/" target="_blank" rel="noopener noreferrer" class="nav-link external">精通比特币SV</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/" class="nav-link mobile-home-link">重粒子空间 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/about/" class="nav-link">关于</a></li><li class="mobile-nav-item"><a href="/tag/" class="nav-link">标签</a></li><li class="mobile-nav-item"><a href="/tag/比特币开发指南/" class="nav-link">比特币开发指南</a></li><li class="mobile-nav-item"><a href="/tag/sCrypt/" class="nav-link">打开sCrypt的盒子</a></li><li class="mobile-nav-item"><a href="https://lilong.net/MasterBitcoinSV/" target="_blank" rel="noopener noreferrer" class="nav-link external">精通比特币SV</a></li> <li class="mobile-nav-item"><a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        例子 - Transactions 交易
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2020-11-03 03:00">
+      2020-11-03 3:00 AM
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/tag/比特币" data-v-42ccfcd5><span data-v-42ccfcd5>比特币</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/翻译" data-v-42ccfcd5><span data-v-42ccfcd5>翻译</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/比特币开发指南" data-v-42ccfcd5><span data-v-42ccfcd5>比特币开发指南</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><p>::: info</p> <p>翻译自<a href="https://developer.bitcoin.org/examples/transactions.html#transactions" target="_blank" rel="noopener noreferrer">Transactions — Bitcoin<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+内容在整理，准确性请自己确认</p> <p>:::</p> <h1 id="transactions-交易"><a href="#transactions-交易" class="header-anchor">#</a> Transactions 交易<a href="https://developer.bitcoin.org/examples/transactions.html#transactions" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h1> <h2 id="transaction-tutorial-交易指南"><a href="#transaction-tutorial-交易指南" class="header-anchor">#</a> Transaction Tutorial 交易指南<a href="https://developer.bitcoin.org/examples/transactions.html#transaction-tutorial" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h2> <p>Creating transactions is something most Bitcoin applications do. This section describes how to use Bitcoin Core’s <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> interface to create transactions with various attributes.</p> <p>创建交易是大多数比特币应用程序所做的事情。本节描述如何使用比特币核心的 RPC 接口创建具有各种属性的交易。</p> <p>Your applications may use something besides Bitcoin Core to create transactions, but in any system, you will need to provide the same kinds of data to create transactions with the same attributes as those described below.</p> <p>你的应用程序可以使用比特币核心之外的东西来创建交易，但是在任何系统中，你都需要提供相同类型的数据来创建具有相同属性的交易，如下所述。</p> <p>In order to use this tutorial, you will need to setup <a href="https://bitcoin.org/en/download" target="_blank" rel="noopener noreferrer">Bitcoin Core<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and create a regression test mode environment with 50 BTC in your test wallet.</p> <p>为了使用本教程，您需要设置比特币核心，并在您的测试钱包中创建一个50比特币的回归测试模式环境。</p> <h3 id="simple-spending-简单消费"><a href="#simple-spending-简单消费" class="header-anchor">#</a> Simple Spending 简单消费<a href="https://developer.bitcoin.org/examples/transactions.html#simple-spending" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h3> <p>Bitcoin Core provides several <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPCs<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> which handle all the details of spending, including creating change outputs and paying appropriate fees. Even advanced users should use these <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPCs<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> whenever possible to decrease the chance that satoshis will be lost by mistake.</p> <p>比特币核心提供了几个处理所有支出细节的 rpc，包括创建变化输出和支付适当的费用。即使是高级用户也应该尽可能地使用这些 rpc，以减少 satoshis 因错误而丢失的可能性。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou
+NEW_ADDRESS=mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou</p></blockquote> <p>Get a new Bitcoin address and save it in the shell variable <code>$NEW_ADDRESS</code>.</p> <p>获取一个新的比特币地址，并将其保存在 shell 变量 $NEW _ address 中。</p> <blockquote><p>bitcoin-cli -regtest sendtoaddress $NEW_ADDRESS 10.00
+263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0</p></blockquote> <p>Send 10 bitcoins to the address using the <a href="https://developer.bitcoin.org/reference/rpc/sendtoaddress.html" target="_blank" rel="noopener noreferrer">“sendtoaddress” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. The returned hex string is the transaction identifier (txid).</p> <p>使用“ sendtoaddress” RPC 向该地址发送10个比特币。返回的十六进制字符串是事务标识符(txid)。</p> <p>The <a href="https://developer.bitcoin.org/reference/rpc/sendtoaddress.html" target="_blank" rel="noopener noreferrer">“sendtoaddress” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> automatically selects an unspent transaction output (UTXO) from which to spend the satoshis. In this case, it withdrew the satoshis from our only available UTXO, the coinbase transaction for block #1 which matured with the creation of block #101. To spend a specific UTXO, you could use the <code>sendfrom</code> <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>instead.</p> <p>“ sendtoaddress” RPC 自动选择一个未使用的事务输出(UTXO) ，从中使用 satoshis。在这种情况下，它从我们唯一可用的 UTXO 中撤回 satoshis，这是块 # 1的 coinbase 事务，随着块 # 101的创建而成熟。要使用特定的 UTXO，可以使用来自 RPC 的 sendfrom。</p> <blockquote><p>bitcoin-cli -regtest listunspent
+[
+]</p></blockquote> <p>Use the <a href="https://developer.bitcoin.org/reference/rpc/listunspent.html" target="_blank" rel="noopener noreferrer">“listunspent” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to display the UTXOs belonging to this wallet. The list is empty because it defaults to only showing confirmed UTXOs and we just spent our only confirmed UTXO.</p> <p>使用“ listunspent” RPC 显示属于这个钱包的 UTXOs。这个列表是空的，因为它默认只显示已确认的 UTXOs，而且我们刚刚用完了唯一已确认的 UTXO。</p> <blockquote><p>bitcoin-cli -regtest listunspent 0</p></blockquote> <p>[
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt&quot;,
+&quot;scriptPubKey&quot; : &quot;76a9149ba386253ea698158b6d34802bb9b550<br>
+f5ce36dd88ac&quot;,
+&quot;amount&quot; : 40.00000000,
+&quot;confirmations&quot; : 0,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 1,
+&quot;address&quot; : &quot;mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou&quot;,
+&quot;account&quot; : &quot;&quot;,
+&quot;scriptPubKey&quot; : &quot;76a914a57414e5ffae9ef5074bacbe10a320bb<br>
+2614e1f388ac&quot;,
+&quot;amount&quot; : 10.00000000,
+&quot;confirmations&quot; : 0,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+}
+]</p> <p>Re-running the <a href="https://developer.bitcoin.org/reference/rpc/listunspent.html" target="_blank" rel="noopener noreferrer">“listunspent” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> with the argument “0” to also display unconfirmed transactions shows that we have two UTXOs, both with the same txid. The first UTXO shown is a change output that <a href="https://developer.bitcoin.org/reference/rpc/sendtoaddress.html" target="_blank" rel="noopener noreferrer">“sendtoaddress”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>created using a new address from the key pool. The second UTXO shown is the spend to the address we provided. If we had spent those satoshis to someone else, that second transaction would not be displayed in our list of UTXOs.</p> <p>重新运行参数为“0”的“ listunspent” RPC 来显示未经确认的事务，这表明我们有两个 UTXOs，它们都具有相同的 txid。显示的第一个 UTXO 是使用密钥池中的新地址创建的“ sendtoaddress”更改输出。显示的第二个 UTXO 是到我们提供的地址的开销。如果我们将这些 satoshis 花费给其他人，那么第二个事务将不会显示在我们的 UTXOs 列表中。</p> <blockquote><p>bitcoin-cli -regtest generate 1</p></blockquote> <blockquote><p>unset NEW_ADDRESS</p></blockquote> <p>Create a new block to confirm the transaction above (takes less than a second) and clear the shell variable.</p> <p>创建一个新块以确认上面的事务(占用不到一秒钟)并清除 shell 变量。</p> <h3 id="simple-raw-transaction-简单的原始事务"><a href="#simple-raw-transaction-简单的原始事务" class="header-anchor">#</a> Simple Raw Transaction 简单的原始事务<a href="https://developer.bitcoin.org/examples/transactions.html#simple-raw-transaction" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h3> <p>The raw transaction <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPCs<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> allow users to create custom transactions and delay broadcasting those transactions. However, mistakes made in raw transactions may not be detected by Bitcoin Core, and a number of raw transaction users have permanently lost large numbers of satoshis, so please be careful using raw transactions on mainnet.</p> <p>原始事务 rpc 允许用户创建自定义事务并延迟这些事务的广播。然而，原始交易中的错误可能不会被比特币核心检测到，而且一些原始交易用户已经永久性地失去了大量的 satoshis，所以请小心使用主网上的原始交易。</p> <p>This subsection covers one of the simplest possible raw transactions.</p> <p>这个小节涵盖了一个最简单的原始交易。</p> <blockquote><p>bitcoin-cli -regtest listunspent</p></blockquote> <p>[
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt&quot;,
+&quot;scriptPubKey&quot; : &quot;76a9149ba386253ea698158b6d34802bb9b550<br>
+f5ce36dd88ac&quot;,
+&quot;amount&quot; : 40.00000000,
+&quot;confirmations&quot; : 1,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 1,
+&quot;address&quot; : &quot;mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou&quot;,
+&quot;account&quot; : &quot;&quot;,
+&quot;scriptPubKey&quot; : &quot;76a914a57414e5ffae9ef5074bacbe10a320bb<br>
+2614e1f388ac&quot;,
+&quot;amount&quot; : 10.00000000,
+&quot;confirmations&quot; : 1,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;3f4fa19803dec4d6a84fae3821da7ac7577080ef754512<br>
+94e71f9b20e0ab1e7b&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;mwJTL1dZG8BAP6X7Be3CNNcuVKi7Qqt7Gk&quot;,
+&quot;scriptPubKey&quot; : &quot;210260a275cccf0f4b106220725be516adba27<br>
+52db1bec8c5b7174c89c4c07891f88ac&quot;,
+&quot;amount&quot; : 50.00000000,
+&quot;confirmations&quot; : 101,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+}
+]</p> <blockquote><p>UTXO_TXID=3f4fa19803dec4d6a84fae3821da7ac7577080ef75451294e71f[...]
+UTXO_VOUT=0</p></blockquote> <p>Re-run <a href="https://developer.bitcoin.org/reference/rpc/listunspent.html" target="_blank" rel="noopener noreferrer">“listunspent”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. We now have three UTXOs: the two transactions we created before plus the coinbase transaction from block #2. We save the txid and <a href="https://developer.bitcoin.org/terms.html#term-output-index" target="_blank" rel="noopener noreferrer">output index<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> number (vout) of that coinbase UTXO to shell variables.</p> <p>重新运行“ listunspent”。我们现在有三个 UTXOs: 前面创建的两个事务加上块 # 2的 coinbase 事务。我们将该 coinbase UTXO 的 txid 和输出索引号(vout)保存到 shell 变量中。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+mz6KvC4aoUeo6wSxtiVQTo7FDwPnkp6URG
+NEW_ADDRESS=mz6KvC4aoUeo6wSxtiVQTo7FDwPnkp6URG</p></blockquote> <p>Get a new address to use in the raw transaction.</p> <p>获取要在原始事务中使用的新地址。</p> <h2 id="outputs-inputs-transaction-fee-so-always-double-check-your-math"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math" class="header-anchor">#</a> Outputs - inputs = transaction fee, so always double-check your math!</h2> <blockquote><p>bitcoin-cli -regtest createrawtransaction '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT'
+}
+]
+''' '''
+{
+&quot;'$NEW_ADDRESS'&quot;: 49.9999
+}'''
+01000000017b1eabe0209b1fe794124575ef807057c77ada2138ae4fa8d6c4de<br>
+0398a14f3f0000000000ffffffff01f0ca052a010000001976a914cbc20a7664<br>
+f2f69e5355aa427045bc15e7c6c77288ac00000000
+RAW_TX=01000000017b1eabe0209b1fe794124575ef807057c77ada2138ae4[...]</p></blockquote> <p>Using two arguments to the <a href="https://developer.bitcoin.org/reference/rpc/createrawtransaction.html" target="_blank" rel="noopener noreferrer">“createrawtransaction” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, we create a new raw format transaction. The first argument (a JSON array) references the txid of the coinbase transaction from block #2 and the index number (0) of the output from that transaction we want to spend. The second argument (a JSON object) creates the output with the address (public key hash) and number of bitcoins we want to transfer. We save the resulting raw format transaction to a shell variable.</p> <p>使用“ createrawtransaction” RPC 的两个参数，我们创建一个新的原始格式事务。第一个参数(一个 JSON 数组)引用来自块 # 2的 coinbase 事务的 txid 和我们希望使用的事务输出的索引号(0)。第二个参数(一个 JSON 对象)创建带有地址(公钥散列)和要传输的比特币数量的输出。我们将生成的原始格式事务保存到一个 shell 变量中。</p> <p><img alt="Warning icon" data-src="https://developer.bitcoin.org/_images/icon_warning.svg" loading="lazy" class="lazy"> <strong>Warning:</strong> <a href="https://developer.bitcoin.org/reference/rpc/createrawtransaction.html" target="_blank" rel="noopener noreferrer">“createrawtransaction”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> does not automatically create change outputs, so you can easily accidentally pay a large transaction fee. In this example, our input had 50.0000 bitcoins and our output (<code>$NEW_ADDRESS</code>) is being paid 49.9999 bitcoins, so the transaction will include a fee of 0.0001 bitcoins. If we had paid <code>$NEW_ADDRESS</code> only 10 bitcoins with no other changes to this transaction, the transaction fee would be a whopping 40 bitcoins. See the Complex Raw Transaction subsection below for how to create a transaction with multiple outputs so you can send the change back to yourself.</p> <p>警告: “ createrawtransaction”不会自动创建更改输出，因此您可以很容易地偶然支付大笔交易费用。在这个例子中，我们的输入有50.0000比特币，而我们的输出($NEW _ address)是49.9999比特币，因此交易将包括0.0001比特币的费用。如果我们只支付了10比特币的 NEW address，而没有对这笔交易进行其他更改，那么交易费用将高达40比特币。请参阅下面的 Complex Raw Transaction 小节，了解如何创建具有多个输出的事务，以便将更改发送回您自己。</p> <blockquote><p>bitcoin-cli -regtest decoderawtransaction $RAW_TX</p></blockquote> <p>{
+&quot;txid&quot; : &quot;c80b343d2ce2b5d829c2de9854c7c8d423c0e33bda264c4013<br>
+8d834aab4c0638&quot;,
+&quot;hash&quot; : &quot;c80b343d2ce2b5d829c2de9854c7c8d423c0e33bda264c40138d834aab4c0638&quot;,
+&quot;size&quot; : 85,
+&quot;vsize&quot; : 85,
+&quot;version&quot; : 1,
+&quot;locktime&quot; : 0,
+&quot;vin&quot; : [
+{
+&quot;txid&quot; : &quot;3f4fa19803dec4d6a84fae3821da7ac7577080ef75<br>
+451294e71f9b20e0ab1e7b&quot;,
+&quot;vout&quot; : 0,
+&quot;scriptSig&quot; : {
+&quot;asm&quot; : &quot;&quot;,
+&quot;hex&quot; : &quot;&quot;
+},
+&quot;sequence&quot; : 4294967295
+}
+],
+&quot;vout&quot; : [
+{
+&quot;value&quot; : 49.99990000,
+&quot;n&quot; : 0,
+&quot;scriptPubKey&quot; : {
+&quot;asm&quot; : &quot;OP_DUP OP_HASH160 cbc20a7664f2f69e5355a<br>
+a427045bc15e7c6c772 OP_EQUALVERIFY OP_CHECKSIG&quot;,
+&quot;hex&quot; : &quot;76a914cbc20a7664f2f69e5355aa427045bc15e<br>
+7c6c77288ac&quot;,
+&quot;reqSigs&quot; : 1,
+&quot;type&quot; : &quot;pubkeyhash&quot;,
+&quot;addresses&quot; : [
+&quot;mz6KvC4aoUeo6wSxtiVQTo7FDwPnkp6URG&quot;
+]
+}
+}
+]
+}</p> <p>Use the <a href="https://developer.bitcoin.org/reference/rpc/decoderawtransaction.html" target="_blank" rel="noopener noreferrer">“decoderawtransaction” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to see exactly what the transaction we just created does.</p> <p>使用“ decoderawtransaction” RPC 查看我们刚刚创建的事务到底是做什么的。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $RAW_TX</p></blockquote> <p>{
+&quot;hex&quot; : &quot;01000000017b1eabe0209b1fe794124575ef807057c77ada213<br>
+8ae4fa8d6c4de0398a14f3f00000000494830450221008949f0<br>
+cb400094ad2b5eb399d59d01c14d73d8fe6e96df1a7150deb38<br>
+8ab8935022079656090d7f6bac4c9a94e0aad311a4268e082a7<br>
+25f8aeae0573fb12ff866a5f01ffffffff01f0ca052a0100000<br>
+01976a914cbc20a7664f2f69e5355aa427045bc15e7c6c77288<br>
+ac00000000&quot;,
+&quot;complete&quot; : true
+}</p> <blockquote><p>SIGNED_RAW_TX=01000000017b1eabe0209b1fe794124575ef807057c77ada[...]</p></blockquote> <p>Use the <code>signrawtransaction</code> <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to sign the transaction created by <a href="https://developer.bitcoin.org/reference/rpc/createrawtransaction.html" target="_blank" rel="noopener noreferrer">“createrawtransaction”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and save the returned “hex” raw format signed transaction to a shell variable.</p> <p>使用 signrawtransaction RPC 对“ createrawtransaction”创建的事务进行签名，并将返回的“ hex”原始格式签名事务保存到 shell 变量中。</p> <p>Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the <a href="https://developer.bitcoin.org/devguide/p2p_network.html" target="_blank" rel="noopener noreferrer">network<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the <code>$SIGNED_RAW_TX</code> variable to eliminate the transaction.</p> <p>即使现在交易已经完成，我们连接的比特币核心节点对交易一无所知，网络的任何其他部分也是如此。我们已经创建了一个支出，但我们实际上并没有花费任何东西，因为我们可以简单地取消 $SIGNED _ raw _ tx 变量来消除事务。</p> <blockquote><p>bitcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX
+c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a966011aaa79965ffba</p></blockquote> <p>Send the signed transaction to the connected node using the <a href="https://developer.bitcoin.org/reference/rpc/sendrawtransaction.html" target="_blank" rel="noopener noreferrer">“sendrawtransaction” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. After accepting the transaction, the node would usually then broadcast it to other peers, but we’re not currently connected to other peers because we started in regtest mode.</p> <p>使用“ sendrawtransaction” RPC 将签名的事务发送到连接的节点。在接受事务之后，节点通常会将其广播给其他节点，但是我们目前没有连接到其他节点，因为我们是在 regtest 模式下启动的。</p> <blockquote><p>bitcoin-cli -regtest generate 1</p></blockquote> <blockquote><p>unset UTXO_TXID UTXO_VOUT NEW_ADDRESS RAW_TX SIGNED_RAW_TX</p></blockquote> <p>Generate a block to confirm the transaction and clear our shell variables.</p> <p>生成一个块来确认事务并清除 shell 变量。</p> <h3 id="complex-raw-transaction-复杂的原始事务"><a href="#complex-raw-transaction-复杂的原始事务" class="header-anchor">#</a> Complex Raw Transaction 复杂的原始事务<a href="https://developer.bitcoin.org/examples/transactions.html#complex-raw-transaction" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h3> <p>In this example, we’ll create a transaction with two inputs and two outputs. We’ll sign each of the inputs separately, as might happen if the two inputs belonged to different people who agreed to create a transaction together (such as a CoinJoin transaction).</p> <p>在本例中，我们将创建一个具有两个输入和两个输出的事务。我们将分别对每个输入进行签名，如果这两个输入属于同意一起创建事务的不同人员(例如 CoinJoin 事务) ，就可能会发生这种情况。</p> <blockquote><p>bitcoin-cli -regtest listunspent</p></blockquote> <p>[
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt&quot;,
+&quot;scriptPubKey&quot; : &quot;76a9149ba386253ea698158b6d34802bb9b550<br>
+f5ce36dd88ac&quot;,
+&quot;amount&quot; : 40.00000000,
+&quot;confirmations&quot; : 2,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835501d<br>
+80200f05753de0edf0&quot;,
+&quot;vout&quot; : 1,
+&quot;address&quot; : &quot;mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou&quot;,
+&quot;account&quot; : &quot;&quot;,
+&quot;scriptPubKey&quot; : &quot;76a914a57414e5ffae9ef5074bacbe10a320bb<br>
+2614e1f388ac&quot;,
+&quot;amount&quot; : 10.00000000,
+&quot;confirmations&quot; : 2,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;78203a8f6b529693759e1917a1b9f05670d036fbb12911<br>
+0ed26be6a36de827f3&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;n2KprMQm4z2vmZnPMENfbp2P1LLdAEFRjS&quot;,
+&quot;scriptPubKey&quot; : &quot;210229688a74abd0d5ad3b06ddff36fa9cd8ed<br>
+d181d97b9489a6adc40431fb56e1d8ac&quot;,
+&quot;amount&quot; : 50.00000000,
+&quot;confirmations&quot; : 101,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+},
+{
+&quot;txid&quot; : &quot;c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a<br>
+966011aaa79965ffba&quot;,
+&quot;vout&quot; : 0,
+&quot;address&quot; : &quot;mz6KvC4aoUeo6wSxtiVQTo7FDwPnkp6URG&quot;,
+&quot;account&quot; : &quot;&quot;,
+&quot;scriptPubKey&quot; : &quot;76a914cbc20a7664f2f69e5355aa427045bc15<br>
+e7c6c77288ac&quot;,
+&quot;amount&quot; : 49.99990000,
+&quot;confirmations&quot; : 1,
+&quot;spendable&quot; : true,
+&quot;solvable&quot; : true
+}
+]</p> <blockquote><p>UTXO1_TXID=78203a8f6b529693759e1917a1b9f05670d036fbb129110ed26[...]
+UTXO1_VOUT=0
+UTXO1_ADDRESS=n2KprMQm4z2vmZnPMENfbp2P1LLdAEFRjS
+UTXO2_TXID=263c018582731ff54dc72c7d67e858c002ae298835501d80200[...]
+UTXO2_VOUT=0
+UTXO2_ADDRESS=muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt</p></blockquote> <p>For our two inputs, we select two UTXOs by placing the txid and <a href="https://developer.bitcoin.org/terms.html#term-output-index" target="_blank" rel="noopener noreferrer">output index<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> numbers (vouts) in shell variables. We also save the addresses corresponding to the public keys (hashed or unhashed) used in those transactions. We need the addresses so we can get the corresponding private keys from our wallet.</p> <p>对于我们的两个输入，我们通过在 shell 变量中放置 txid 和输出索引号(vouts)来选择两个 UTXOs。我们还保存与这些交易中使用的公钥(散列或非散列)对应的地址。我们需要地址，这样我们就可以从钱包里拿到相应的私人钥匙。</p> <blockquote><p>bitcoin-cli -regtest dumpprivkey $UTXO1_ADDRESS
+cSp57iWuu5APuzrPGyGc4PGUeCg23PjenZPBPoUs24HtJawccHPm
+bitcoin-cli -regtest dumpprivkey $UTXO2_ADDRESS
+cT26DX6Ctco7pxaUptJujRfbMS2PJvdqiSMaGaoSktHyon8kQUSg
+UTXO1_PRIVATE_KEY=cSp57iWuu5APuzrPGyGc4PGUeCg23PjenZPBPoUs24Ht[...]</p></blockquote> <blockquote><p>UTXO2_PRIVATE_KEY=cT26DX6Ctco7pxaUptJujRfbMS2PJvdqiSMaGaoSktHy[...]</p></blockquote> <p>Use the <a href="https://developer.bitcoin.org/reference/rpc/dumpprivkey.html" target="_blank" rel="noopener noreferrer">“dumpprivkey” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to get the private keys corresponding to the public keys used in the two UTXOs we will be spending. We need the private keys so we can sign each of the inputs separately.</p> <p>使用“ dumpprivkey” RPC 获取与我们将使用的两个 UTXOs 中使用的公钥对应的私钥。我们需要私有密钥，这样我们就可以分别对每个输入进行签名。</p> <p><img alt="Warning icon" data-src="https://developer.bitcoin.org/_images/icon_warning.svg" loading="lazy" class="lazy"> <strong>Warning:</strong> Users should never manually manage private keys on mainnet. As dangerous as raw transactions are (see warnings above), making a mistake with a private key can be much worse—as in the case of a HD wallet <a href="https://developer.bitcoin.org/devguide/wallets.html#hardened-keys" target="_blank" rel="noopener noreferrer">cross-generational key compromise<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. These examples are to help you learn, not for you to emulate on mainnet.</p> <p>警告: 用户永远不要在主网络上手动管理私钥。与原始交易一样危险(见上面的警告) ，使用私钥犯错误可能会更糟糕——就像 HD 钱包跨代密钥妥协一样。这些例子是为了帮助您学习，而不是让您在主网上模仿。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+n4puhBEeEWD2VvjdRC9kQuX2abKxSCMNqN
+bitcoin-cli -regtest getnewaddress
+n4LWXU59yM5MzQev7Jx7VNeq1BqZ85ZbLj
+NEW_ADDRESS1=n4puhBEeEWD2VvjdRC9kQuX2abKxSCMNqN
+NEW_ADDRESS2=n4LWXU59yM5MzQev7Jx7VNeq1BqZ85ZbLj</p></blockquote> <p>For our two outputs, get two new addresses.</p> <p>对于我们的两个输出，获得两个新地址。</p> <h2 id="outputs-inputs-transaction-fee-so-always-double-check-your-math-2"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-2" class="header-anchor">#</a> Outputs - inputs = transaction fee, so always double-check your math!</h2> <blockquote><p>bitcoin-cli -regtest createrawtransaction '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO1_TXID'&quot;,
+&quot;vout&quot;: '$UTXO1_VOUT'
+},
+{
+&quot;txid&quot;: &quot;'$UTXO2_TXID'&quot;,
+&quot;vout&quot;: '$UTXO2_VOUT'
+}
+]
+''' '''
+{
+&quot;'$NEW_ADDRESS1'&quot;: 79.9999,
+&quot;'$NEW_ADDRESS2'&quot;: 10
+}'''
+0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a117199e75939652<br>
+6b8f3a20780000000000fffffffff0ede03d75050f20801d50358829ae02c058<br>
+e8677d2cc74df51f738285013c260000000000ffffffff02f028d6dc01000000<br>
+1976a914ffb035781c3c69e076d48b60c3d38592e7ce06a788ac00ca9a3b0000<br>
+00001976a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac00000000
+RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a117199[...]</p></blockquote> <p>Create the raw transaction using <a href="https://developer.bitcoin.org/reference/rpc/createrawtransaction.html" target="_blank" rel="noopener noreferrer">“createrawtransaction”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> much the same as before, except now we have two inputs and two outputs.</p> <p>使用“ createrawtransaction”创建原始事务与以前大致相同，只是现在我们有两个输入和两个输出。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $RAW_TX '[]' '''
+[
+&quot;'$UTXO1_PRIVATE_KEY'&quot;
+]'''</p></blockquote> <p>{
+&quot;hex&quot; : &quot;0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a11<br>
+7199e759396526b8f3a20780000000049483045022100fce442<br>
+ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d179<br>
+9b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7<br>
+422ea945101d68535c4b474801fffffffff0ede03d75050f208<br>
+01d50358829ae02c058e8677d2cc74df51f738285013c260000<br>
+000000ffffffff02f028d6dc010000001976a914ffb035781c3<br>
+c69e076d48b60c3d38592e7ce06a788ac00ca9a3b0000000019<br>
+76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac0<br>
+0000000&quot;,
+&quot;complete&quot; : false
+&quot;errors&quot;: [
+{
+&quot;txid&quot;: &quot;c53f8f5ac0b6b10cdc77f543718eb3880fee6cf9b5e0cbf4edb2a59c0fae09a4&quot;,
+&quot;vout&quot;: 0,
+&quot;scriptSig&quot;: &quot;&quot;,
+&quot;sequence&quot;: 4294967295,
+&quot;error&quot;: &quot;Operation not valid with the current stack size&quot;
+}
+]
+}</p> <blockquote><p>PARTLY_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07[...]</p></blockquote> <p>Signing the raw transaction with <code>signrawtransaction</code> gets more complicated as we now have three arguments:</p> <p>使用 signrawtransaction 签署原始事务变得更加复杂，因为我们现在有三个参数:</p> <ol><li><p>The unsigned raw transaction.</p> <p>未签名的原始事务。</p></li> <li><p>An empty array. We don’t do anything with this argument in this operation, but some valid JSON must be provided to get access to the later positional arguments.</p> <p>一个空数组。在这个操作中，我们对这个参数不做任何处理，但是必须提供一些有效的 JSON 来访问后面的位置参数。</p></li> <li><p>The private key we want to use to sign one of the inputs.</p> <p>我们要用来对其中一个输入进行签名的私钥。</p></li></ol> <p>The result is a raw transaction with only one input signed; the fact that the transaction isn’t fully signed is indicated by value of the <code>complete</code> JSON field. We save the incomplete, partly-signed raw transaction hex to a shell variable.</p> <p>结果是一个只有一个已签名输入的原始事务; 事务没有完全签名的事实由完整 JSON 字段的值表示。我们将不完整的、部分签名的原始事务十六进制保存到 shell 变量中。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $PARTLY_SIGNED_RAW_TX '[]' '''
+[
+&quot;'$UTXO2_PRIVATE_KEY'&quot;
+]'''</p></blockquote> <p>{
+&quot;hex&quot; : &quot;0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a11<br>
+7199e759396526b8f3a20780000000049483045022100fce442<br>
+ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d179<br>
+9b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7<br>
+422ea945101d68535c4b474801fffffffff0ede03d75050f208<br>
+01d50358829ae02c058e8677d2cc74df51f738285013c260000<br>
+00006b483045022100b77f935ff366a6f3c2fdeb83589c79026<br>
+5d43b3d2cf5e5f0047da56c36de75f40220707ceda75d8dcf2c<br>
+caebc506f7293c3dcb910554560763d7659fb202f8ec324b012<br>
+102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f94<br>
+27686017c603a6d6ffffffff02f028d6dc010000001976a914f<br>
+fb035781c3c69e076d48b60c3d38592e7ce06a788ac00ca9a3b<br>
+000000001976a914fa5139067622fd7e1e722a05c17c2bb7d5f<br>
+d6df088ac00000000&quot;,
+&quot;complete&quot; : true
+}</p> <p>To sign the second input, we repeat the process we used to sign the first input using the second private key. Now that both inputs are signed, the <code>complete</code> result is <em>true</em>.</p> <p>为了对第二个输入签名，我们重复使用第二个私钥对第一个输入签名的过程。现在两个输入都签名了，完整的结果为 true。</p> <blockquote><p>unset PARTLY_SIGNED_RAW_TX RAW_TX NEW_ADDRESS1 [...]</p></blockquote> <p>Clean up the shell variables used. Unlike previous subsections, we’re not going to send this transaction to the connected node with <a href="https://developer.bitcoin.org/reference/rpc/sendrawtransaction.html" target="_blank" rel="noopener noreferrer">“sendrawtransaction”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. This will allow us to illustrate in the Offline Signing subsection below how to spend a transaction which is not yet in the block chain or memory pool.</p> <p>清除所使用的 shell 变量。与前面的子节不同，我们不会使用“ sendrawtransaction”将此事务发送到连接的节点。这将允许我们在下面的离线签名小节中演示如何使用尚未处于块链或内存池中的事务。</p> <h3 id="offline-signing-离线签名"><a href="#offline-signing-离线签名" class="header-anchor">#</a> Offline Signing 离线签名<a href="https://developer.bitcoin.org/examples/transactions.html#offline-signing" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h3> <p>We will now spend the transaction created in the Complex Raw Transaction subsection above without sending it to the local node first. This is the same basic process used by wallet programs for offline signing—which generally means signing a transaction without access to the current UTXO set.</p> <p>现在，我们将使用上面在 Complex Raw Transaction 小节中创建的事务，而不首先将其发送到本地节点。这与钱包程序用于离线签名的基本过程相同ーー离线签名通常意味着在不访问当前 UTXO 集的情况下签名事务。</p> <p>Offline signing is safe. However, in this example we will also be spending an output which is not part of the block chain because the transaction containing it has never been broadcast. That can be unsafe:</p> <p>离线签名是安全的。然而，在这个例子中，我们也将花费一个不属于块链的输出，因为包含它的事务从未被广播过。这可能是不安全的:</p> <p><img alt="Warning icon" data-src="https://developer.bitcoin.org/_images/icon_warning.svg" loading="lazy" class="lazy"> <strong>Warning:</strong> Transactions which spend outputs from unconfirmed transactions are vulnerable to transaction malleability. Be sure to read about transaction malleability and adopt good practices before spending unconfirmed transactions on mainnet.</p> <p>警告: 使用未确认事务输出的事务易受事务延展性的影响。在把未经确认的交易放到主网上之前，一定要阅读有关交易延展性的内容，并采用良好的实践方法。</p> <blockquote><p>OLD_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07056<br>
+f0b9a117199e759396526b8f3a20780000000049483045022100fce442<br>
+ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d1799b10b21<br>
+02207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7422ea945101d68<br>
+535c4b474801fffffffff0ede03d75050f20801d50358829ae02c058e8<br>
+677d2cc74df51f738285013c26000000006b483045022100b77f935ff3<br>
+66a6f3c2fdeb83589c790265d43b3d2cf5e5f0047da56c36de75f40220<br>
+707ceda75d8dcf2ccaebc506f7293c3dcb910554560763d7659fb202f8<br>
+ec324b012102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f<br>
+9427686017c603a6d6ffffffff02f028d6dc010000001976a914ffb035<br>
+781c3c69e076d48b60c3d38592e7ce06a788ac00ca9a3b000000001976<br>
+a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac00000000</p></blockquote> <p>Put the previously signed (but not sent) transaction into a shell variable.</p> <p>将以前签名(但未发送)的事务放入 shell 变量中。</p> <blockquote><p>bitcoin-cli -regtest decoderawtransaction $OLD_SIGNED_RAW_TX</p></blockquote> <p>{
+&quot;txid&quot; : &quot;682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad<br>
+40cf18ffbb8e09&quot;,
+&quot;hash&quot; : &quot;682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40cf18ffbb8e09&quot;,
+&quot;size&quot; : 340,
+&quot;vsize&quot; : 340,
+&quot;version&quot; : 1,
+&quot;locktime&quot; : 0,
+&quot;vin&quot; : [
+{
+&quot;txid&quot; : &quot;78203a8f6b529693759e1917a1b9f05670d036fbb1<br>
+29110ed26be6a36de827f3&quot;,
+&quot;vout&quot; : 0,
+&quot;scriptSig&quot; : {
+&quot;asm&quot; : &quot;3045022100fce442ec52aa2792efc27fd3ad0ea<br>
+f7fa69f097fdcefab017ea56d1799b10b210220<br>
+7a6ae3eb61e11ffaba0453f173d1792f1b7bb8e<br>
+7422ea945101d68535c4b474801&quot;,
+&quot;hex&quot; : &quot;483045022100FCE442ec52aa2792efc27fd3ad0<br>
+eaf7fa69f097fdcefab017ea56d1799b10b2102<br>
+207a6ae3eb61e11ffaba0453f173d1792f1b7bb<br>
+8e7422ea945101d68535c4b474801&quot;
+},
+&quot;sequence&quot; : 4294967295
+},
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835<br>
+501d80200f05753de0edf0&quot;,
+&quot;vout&quot; : 0,
+&quot;scriptSig&quot; : {
+&quot;asm&quot; : &quot;3045022100b77f935ff366a6f3c2fdeb83589c7<br>
+90265d43b3d2cf5e5f0047da56c36de75f40220<br>
+707ceda75d8dcf2ccaebc506f7293c3dcb91055<br>
+4560763d7659fb202f8ec324b01
+02240d7d3c7aad57b68aa0178f4c56f997d1bfa<br>
+b2ded3c2f9427686017c603a6d6&quot;,
+&quot;hex&quot; : &quot;483045022100b77f935ff366a6f3c2fdeb83589<br>
+c790265d43b3d2cf5e5f0047da56c36de75f402<br>
+20707ceda75d8dcf2ccaebc506f7293c3dcb910<br>
+554560763d7659fb202f8ec324b012102240d7d<br>
+3c7aad57b68aa0178f4c56f997d1bfab2ded3c2<br>
+f9427686017c603a6d6&quot;
+},
+&quot;sequence&quot; : 4294967295
+}
+],
+&quot;vout&quot; : [
+{
+&quot;value&quot; : 79.99990000,
+&quot;n&quot; : 0,
+&quot;scriptPubKey&quot; : {
+&quot;asm&quot; : &quot;OP_DUP OP_HASH160 ffb035781c3c69e076d48<br>
+b60c3d38592e7ce06a7 OP_EQUALVERIFY OP_CHECKSIG&quot;,
+&quot;hex&quot; : &quot;76a914ffb035781c3c69e076d48b60c3d38592e<br>
+7ce06a788ac&quot;,
+&quot;reqSigs&quot; : 1,
+&quot;type&quot; : &quot;pubkeyhash&quot;,
+&quot;addresses&quot; : [
+&quot;n4puhBEeEWD2VvjdRC9kQuX2abKxSCMNqN&quot;
+]
+}
+},
+{
+&quot;value&quot; : 10.00000000,
+&quot;n&quot; : 1,
+&quot;scriptPubKey&quot; : {
+&quot;asm&quot; : &quot;OP_DUP OP_HASH160 fa5139067622fd7e1e722<br>
+a05c17c2bb7d5fd6df0 OP_EQUALVERIFY OP_CHECKSIG&quot;,
+&quot;hex&quot; : &quot;76a914fa5139067622fd7e1e722a05c17c2bb7d<br>
+5fd6df088ac&quot;,
+&quot;reqSigs&quot; : 1,
+&quot;type&quot; : &quot;pubkeyhash&quot;,
+&quot;addresses&quot; : [
+&quot;n4LWXU59yM5MzQev7Jx7VNeq1BqZ85ZbLj&quot;
+]
+}
+}
+]
+}</p> <blockquote><p>UTXO_TXID=682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40[...]
+UTXO_VOUT=1
+UTXO_VALUE=10.00000000
+UTXO_OUTPUT_SCRIPT=76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6[...]</p></blockquote> <p>Decode the signed raw transaction so we can get its txid. Also, choose a specific one of its UTXOs to spend and save that UTXO’s <a href="https://developer.bitcoin.org/terms.html#term-output-index" target="_blank" rel="noopener noreferrer">output index<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> number (vout) and hex pubkey script (scriptPubKey) into shell variables.</p> <p>对签名的原始事务进行解码，得到它的 txid。另外，选择一个特定的 UTXOs 来使用，并将 UTXO 的输出索引号(vout)和 hex pubkey 脚本(scriptPubKey)保存到 shell 变量中。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+mfdCHEFL2tW9eEUpizk7XLZJcnFM4hrp78
+NEW_ADDRESS=mfdCHEFL2tW9eEUpizk7XLZJcnFM4hrp78</p></blockquote> <p>Get a new address to spend the satoshis to.</p> <p>找个新地址把 satoshis 的钱花掉。</p> <h2 id="outputs-inputs-transaction-fee-so-always-double-check-your-math-3"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-3" class="header-anchor">#</a> Outputs - inputs = transaction fee, so always double-check your math!</h2> <blockquote><p>bitcoin-cli -regtest createrawtransaction '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT'
+}
+]
+''' '''
+{
+&quot;'$NEW_ADDRESS'&quot;: 9.9999
+}'''
+0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c990c8fdfb99cf6<br>
+1d88ad2c680100000000ffffffff01f0a29a3b000000001976a914012e2ba6a0<br>
+51c033b03d712ca2ea00a35eac1e7988ac00000000
+RAW_TX=0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c990c8[...]</p></blockquote> <p>Create the raw transaction the same way we’ve done in the previous subsections.</p> <p>按照前面小节中的方法创建原始事务。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $RAW_TX</p></blockquote> <p>{
+&quot;hex&quot; : &quot;0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee<br>
+96c990c8fdfb99cf61d88ad2c680100000000ffffffff01<br>
+f0a29a3b000000001976a914012e2ba6a051c033b03d712<br>
+ca2ea00a35eac1e7988ac00000000&quot;,
+&quot;complete&quot; : false
+}</p> <p>Attempt to sign the raw transaction without any special arguments, the way we successfully signed the the raw transaction in the Simple Raw Transaction subsection. If you’ve read the <a href="https://developer.bitcoin.org/devguide/transactions.html" target="_blank" rel="noopener noreferrer">Transaction section<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> of the guide, you may know why the call fails and leaves the raw transaction hex unchanged.</p> <p>尝试在没有任何特殊参数的情况下签名原始事务，就像我们在 Simple Raw Transaction 小节中成功签名原始事务那样。如果您已经阅读了指南中的 Transaction 部分，那么您可能知道为什么调用失败并使原始事务十六进制保持不变。</p> <p><img alt="Old Transaction Data Required To Be Signed" data-src="https://developer.bitcoin.org/_images/en-signing-output-to-spend.svg" loading="lazy" class="lazy"></p> <p>Old Transaction Data Required To Be Signed<a href="https://developer.bitcoin.org/examples/transactions.html#id1" title="Permalink to this image" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>需要签署的旧交易数据</p> <p>As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the <a href="https://developer.bitcoin.org/reference/rpc/createrawtransaction.html" target="_blank" rel="noopener noreferrer">“createrawtransaction”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.</p> <p>如上所示，签名的数据包括来自前一个事务的 txid 和 vout。这些信息包含在“ createrawtransaction”原始事务中。但是，被签名的数据还包括来自前一个事务的 pubkey 脚本，即使它不出现在未签名或有签名的事务中。</p> <p>In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and <a href="https://developer.bitcoin.org/terms.html#term-output-index" target="_blank" rel="noopener noreferrer">output index<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> number to find the previous pubkey script and insert it automatically.</p> <p>在上面的其他原始事务子节中，前面的输出是钱包已知的 UTXO 集的一部分，因此钱包能够使用 txid 和输出索引号来查找前面的 pubkey 脚本并自动插入它。</p> <p>In this case, you’re spending an output which is unknown to the wallet, so it can’t automatically insert the previous pubkey script.</p> <p>在这种情况下，您所使用的输出是钱包所不知道的，因此它不能自动插入以前的 pubkey 脚本。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $RAW_TX '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT',
+&quot;scriptPubKey&quot;: &quot;'$UTXO_OUTPUT_SCRIPT'&quot;,
+&quot;value&quot;: '$UTXO_VALUE'
+}
+]'''</p></blockquote> <p>{
+&quot;hex&quot; : &quot;0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c9<br>
+90c8fdfb99cf61d88ad2c68010000006b483045022100c3f92f<br>
+b74bfa687d76ebe75a654510bb291b8aab6f89ded4fe26777c2<br>
+eb233ad02207f779ce2a181cc4055cb0362aba7fd7a6f72d5db<br>
+b9bd863f4faaf47d8d6c4b500121028e4e62d25760709806131<br>
+b014e2572f7590e70be01f0ef16bfbd51ea5f389d4dffffffff<br>
+01f0a29a3b000000001976a914012e2ba6a051c033b03d712ca<br>
+2ea00a35eac1e7988ac00000000&quot;,
+&quot;complete&quot; : true
+}</p> <blockquote><p>SIGNED_RAW_TX=0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee9[...]</p></blockquote> <p>Successfully sign the transaction by providing the previous pubkey script and other required input data.</p> <p>通过提供以前的 pubkey 脚本和其他必需的输入数据，成功地对事务进行签名。</p> <p>This specific operation is typically what offline signing wallets do. The online wallet creates the raw transaction and gets the previous pubkey scripts for all the inputs. The user brings this information to the offline wallet. After displaying the transaction details to the user, the offline wallet signs the transaction as we did above. The user takes the signed transaction back to the online wallet, which broadcasts it.</p> <p>这种特定的操作通常是离线签名钱包所做的。在线钱包创建原始事务并获得所有输入的先前 pubkey 脚本。用户将这些信息带到离线钱包中。在向用户显示交易详细信息之后，脱机钱包会像上面那样对交易进行签名。用户将签名后的交易返回到在线钱包，然后钱包会播放这个交易。</p> <blockquote><p>bitcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX</p></blockquote> <p>{&quot;error&quot;: {&quot;code&quot;:-22,&quot;message&quot;:&quot;TX rejected&quot;}}</p> <p>Attempt to broadcast the second transaction before we’ve broadcast the first transaction. The node rejects this attempt because the second transaction spends an output which is not a UTXO the node knows about.</p> <p>尝试在广播第一个事务之前广播第二个事务。节点拒绝此尝试，因为第二个事务花费的输出不是节点知道的 UTXO。</p> <blockquote><p>bitcoin-cli -regtest sendrawtransaction $OLD_SIGNED_RAW_TX
+682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40cf18ffbb8e09
+bitcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX
+67d53afa1a8167ca093d30be7fb9dcb8a64a5fdecacec9d93396330c47052c57</p></blockquote> <p>Broadcast the first transaction, which succeeds, and then broadcast the second transaction—which also now succeeds because the node now sees the UTXO.</p> <p>广播第一个事务，第一个事务成功，然后广播第二个事务ー现在也成功，因为节点现在看到了 UTXO。</p> <blockquote><p>bitcoin-cli -regtest getrawmempool</p></blockquote> <p>[
+&quot;67d53afa1a8167ca093d30be7fb9dcb8a64a5fdecacec9d93396330c47052c57&quot;,
+&quot;682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40cf18ffbb8e09&quot;
+]</p> <p>We have once again not generated an additional block, so the transactions above have not yet become part of the regtest block chain. However, they are part of the local node’s memory pool.</p> <p>我们再次没有生成额外的块，因此上面的事务还没有成为 regtest 块链的一部分。但是，它们是本地节点内存池的一部分。</p> <blockquote><p>unset OLD_SIGNED_RAW_TX SIGNED_RAW_TX RAW_TX [...]</p></blockquote> <p>Remove old shell variables.</p> <p>删除旧的 shell 变量。</p> <h3 id="p2sh-multisig"><a href="#p2sh-multisig" class="header-anchor">#</a> P2SH Multisig<a href="https://developer.bitcoin.org/examples/transactions.html#p2sh-multisig" title="Permalink to this headline" target="_blank" rel="noopener noreferrer"><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h3> <p>In this subsection, we will create a P2SH multisig address, spend satoshis to it, and then spend those satoshis from it to another address.</p> <p>在本小节中，我们将创建一个 P2SH multisig 地址，对其使用 satoshis，然后将这些 satoshis 从它转移到另一个地址。</p> <p>Creating a multisig address is easy. Multisig outputs have two parameters, the <em>minimum</em> number of signatures required (<em>m</em>) and the <em>number</em> of public keys to use to validate those signatures. This is called m-of-n, and in this case we’ll be using 2-of-3.</p> <p>创建一个 multisig 地址很容易。Multisig 输出有两个参数，即所需签名的最小数量(m)和用于验证这些签名的公钥数量。这叫做 m-of-n，在这个例子中我们将使用2-of-3。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+mhAXF4Eq7iRyvbYk1mpDVBiGdLP3YbY6Dm
+bitcoin-cli -regtest getnewaddress
+moaCrnRfP5zzyhW8k65f6Rf2z5QpvJzSKe
+bitcoin-cli -regtest getnewaddress
+mk2QpYatsKicvFVuTAQLBryyccRXMUaGHP
+NEW_ADDRESS1=mhAXF4Eq7iRyvbYk1mpDVBiGdLP3YbY6Dm
+NEW_ADDRESS2=moaCrnRfP5zzyhW8k65f6Rf2z5QpvJzSKe
+NEW_ADDRESS3=mk2QpYatsKicvFVuTAQLBryyccRXMUaGHP</p></blockquote> <p>Generate three new P2PKH addresses. P2PKH addresses cannot be used with the multisig redeem script created below. (Hashing each public key is unnecessary anyway—all the public keys are protected by a hash when the redeem script is hashed.) However, Bitcoin Core uses addresses as a way to reference the underlying full (unhashed) public keys it knows about, so we get the three new addresses above in order to use their public keys.</p> <p>生成三个新的 P2PKH 地址。P2PKH 地址不能与下面创建的 multisig 赎回脚本一起使用。(无论如何，散列每个公钥都是不必要的ー所有的公钥都是由散列保护的，当对赎回脚本进行散列时。)然而，比特币核心使用地址作为引用它所知道的底层完整(反向)公钥的一种方式，所以我们得到了上面的三个新地址，以便使用它们的公钥。</p> <p>Recall from the Guide that the hashed public keys used in addresses obfuscate the full public key, so you cannot give an address to another person or device as part of creating a typical multisig output or P2SH multisig redeem script. You must give them a full public key.</p> <p>指南中提到，地址中使用的散列公钥模糊了完整的公钥，因此，在创建典型的 multisig 输出或 P2SH multisig 赎回脚本时，不能向其他人或设备提供地址。您必须给他们一个完整的公钥。</p> <blockquote><p>bitcoin-cli -regtest validateaddress $NEW_ADDRESS3</p></blockquote> <p>{
+&quot;isvalid&quot; : true,
+&quot;address&quot; : &quot;mk2QpYatsKicvFVuTAQLBryyccRXMUaGHP&quot;,
+&quot;scriptPubKey&quot; : &quot;76a9143172b5654f6683c8fb146959d347ce303cae4ca788ac&quot;,
+&quot;ismine&quot; : true,
+&quot;iswatchonly&quot; : false,
+&quot;isscript&quot; : false,
+&quot;pubkey&quot; : &quot;029e03a901b85534ff1e92c43c74431f7ce72046060fcf7a<br>
+95c37e148f78c77255&quot;,
+&quot;iscompressed&quot; : true,
+&quot;account&quot; : &quot;&quot;
+}</p> <blockquote><p>NEW_ADDRESS3_PUBLIC_KEY=029e03a901b85534ff1e92c43c74431f7ce720[...]</p></blockquote> <p>Use the <a href="https://developer.bitcoin.org/reference/rpc/validateaddress.html" target="_blank" rel="noopener noreferrer">“validateaddress” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to display the full (unhashed) public key for one of the addresses. This is the information which will actually be included in the multisig redeem script. This is also the information you would give another person or device as part of creating a multisig output or P2SH multisig redeem script.</p> <p>使用“ validateaddress” RPC 显示其中一个地址的完整(反向)公钥。这些信息实际上将包含在 multisig redemption 脚本中。这也是您在创建 multisig 输出或 P2SH multisig 赎回脚本时向另一个人或设备提供的信息。</p> <p>We save the address returned to a shell variable.</p> <p>我们保存返回到 shell 变量的地址。</p> <blockquote><p>bitcoin-cli -regtest createmultisig 2 '''
+[
+&quot;'$NEW_ADDRESS1'&quot;,
+&quot;'$NEW_ADDRESS2'&quot;,
+&quot;'$NEW_ADDRESS3_PUBLIC_KEY'&quot;
+]'''</p></blockquote> <p>{
+&quot;address&quot; : &quot;2N7NaqSKYQUeM8VNgBy8D9xQQbiA8yiJayk&quot;,
+&quot;redeemScript&quot; : &quot;522103310188e911026cf18c3ce274e0ebb5f95b00<br>
+7f230d8cb7d09879d96dbeab1aff210243930746e6ed6552e03359db521b<br>
+088134652905bd2d1541fa9124303a41e95621029e03a901b85534ff1e92<br>
+c43c74431f7ce72046060fcf7a95c37e148f78c7725553ae&quot;
+}</p> <blockquote><p>P2SH_ADDRESS=2N7NaqSKYQUeM8VNgBy8D9xQQbiA8yiJayk
+P2SH_REDEEM_SCRIPT=522103310188e911026cf18c3ce274e0ebb5f95b007[...]</p></blockquote> <p>Use the <a href="https://developer.bitcoin.org/reference/rpc/createmultisig.html" target="_blank" rel="noopener noreferrer">“createmultisig” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> with two arguments, the number (<em>n</em>) of signatures required and a list of addresses or public keys. Because P2PKH addresses can’t be used in the multisig redeem script created by this <a href="https://developer.bitcoin.org/reference/rpc/index.html" target="_blank" rel="noopener noreferrer">RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, the only addresses which can be provided are those belonging to a public key in the wallet. In this case, we provide two addresses and one public key—all of which will be converted to public keys in the redeem script.</p> <p>使用带有两个参数的“ createmultisig” RPC，参数是所需签名的数量(n)和地址或公钥的列表。由于 P2PKH 地址不能用于这个 RPC 创建的 multisig 赎回脚本，所以只能提供那些属于钱包中的公钥的地址。在这种情况下，我们提供两个地址和一个公钥ー所有这些都将在赎回脚本中转换为公钥。</p> <p>The P2SH address is returned along with the redeem script which must be provided when we spend satoshis sent to the P2SH address.</p> <p>P2SH 地址和赎回脚本一起返回，这些脚本必须在我们将 satoshis 发送到 P2SH 地址时提供。</p> <p><img alt="Warning icon" data-src="https://developer.bitcoin.org/_images/icon_warning.svg" loading="lazy" class="lazy"> <strong>Warning:</strong> You must not lose the redeem script, especially if you don’t have a record of which public keys you used to create the P2SH multisig address. You need the redeem script to spend any bitcoins sent to the P2SH address. If you lose the redeem script, you can recreate it by running the same command above, with the public keys listed in the same order. However, if you lose both the redeem script and even one of the public keys, you will never be able to spend satoshis sent to that P2SH address.</p> <p>警告: 您不能丢失赎回脚本，特别是如果您没有用于创建 P2SH multisig 地址的公钥记录。你需要兑换脚本来花掉所有发送到 P2SH 地址的比特币。如果您丢失了可赎回的脚本，您可以通过运行上面的相同命令重新创建它，公钥按相同的顺序列出。但是，如果您丢失了赎回脚本，甚至丢失了一个公钥，那么您将永远无法将 satoshis 发送到该 P2SH 地址。</p> <p>Neither the address nor the redeem script are stored in the wallet when you use <a href="https://developer.bitcoin.org/reference/rpc/createmultisig.html" target="_blank" rel="noopener noreferrer">“createmultisig”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. To store them in the wallet, use the <a href="https://developer.bitcoin.org/reference/rpc/addmultisigaddress.html" target="_blank" rel="noopener noreferrer">“addmultisigaddress” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> instead. If you add an address to the wallet, you should also make a new backup.</p> <p>当您使用“ createmultisig”时，地址和赎回脚本都不会存储在钱包中。要将它们存储在钱包中，可以使用“ addmultisigaddress” RPC。如果你在钱包中添加了地址，你也应该做一个新的备份。</p> <blockquote><p>bitcoin-cli -regtest sendtoaddress $P2SH_ADDRESS 10.00
+7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884db139876e175
+UTXO_TXID=7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884[...]</p></blockquote> <p>Paying the P2SH multisig address with Bitcoin Core is as simple as paying a more common P2PKH address. Here we use the same command (but different variable) we used in the Simple Spending subsection. As before, this command automatically selects an UTXO, creates a change output to a new one of our P2PKH addresses if necessary, and pays a transaction fee if necessary.</p> <p>用比特币核心支付 P2SH multisig 地址就像支付一个更常见的 P2PKH 地址一样简单。这里我们使用了在 Simple Spending 小节中使用的相同命令(但不同的变量)。与前面一样，这个命令自动选择一个 UTXO，如果需要，创建一个对新的 P2PKH 地址的更改输出，并在必要时支付事务费。</p> <p>We save that txid to a shell variable as the txid of the UTXO we plan to spend next.</p> <p>我们将这个 txid 保存到一个 shell 变量中，作为我们计划下一步使用的 UTXO 的 txid。</p> <blockquote><p>bitcoin-cli -regtest getrawtransaction $UTXO_TXID 1</p></blockquote> <p>{
+&quot;hex&quot; : &quot;0100000001f0ede03d75050f20801d50358829ae02c058e8677<br>
+d2cc74df51f738285013c26010000006a47304402203c375959<br>
+2bf608ab79c01596c4a417f3110dd6eb776270337e575cdafc6<br>
+99af20220317ef140d596cc255a4067df8125db7f349ad94521<br>
+2e9264a87fa8d777151937012102a92913b70f9fb15a7ea5c42<br>
+df44637f0de26e2dad97d6d54957690b94cf2cd05ffffffff01<br>
+00ca9a3b0000000017a9149af61346ce0aa2dffcf697352b4b7<br>
+04c84dcbaff8700000000&quot;,
+&quot;txid&quot; : &quot;7278d7d030f042ebe633732b512bcb31fff14a697675a1fe18<br>
+84db139876e175&quot;,
+&quot;hash&quot; : &quot;7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884db139876e175&quot;,
+&quot;size&quot; : 189,
+&quot;vsize&quot; : 189,
+&quot;version&quot; : 1,
+&quot;locktime&quot; : 0,
+&quot;vin&quot; : [
+{
+&quot;txid&quot; : &quot;263c018582731ff54dc72c7d67e858c002ae298835<br>
+501d80200f05753de0edf0&quot;,
+&quot;vout&quot; : 1,
+&quot;scriptSig&quot; : {
+&quot;asm&quot; : &quot;304402203c3759592bf608ab79c01596c4a417f<br>
+3110dd6eb776270337e575cdafc699af2022031<br>
+7ef140d596cc255a4067df8125db7f349ad9452<br>
+12e9264a87fa8d77715193701
+02a92913b70f9fb15a7ea5c42df44637f0de26e<br>
+2dad97d6d54957690b94cf2cd05&quot;,
+&quot;hex&quot; : &quot;47304402203c3759592bf608ab79c01596c4a41<br>
+7f3110dd6eb776270337e575cdafc699af20220<br>
+317ef140d596cc255a4067df8125db7f349ad94<br>
+5212e9264a87fa8d777151937012102a92913b7<br>
+0f9fb15a7ea5c42df44637f0de26e2dad97d6d5<br>
+4957690b94cf2cd05&quot;
+},
+&quot;sequence&quot; : 4294967295
+}
+],
+&quot;vout&quot; : [
+{
+&quot;value&quot; : 10.00000000,
+&quot;n&quot; : 0,
+&quot;scriptPubKey&quot; : {
+&quot;asm&quot; : &quot;OP_HASH160 9af61346ce0aa2dffcf697352b4b<br>
+704c84dcbaff OP_EQUAL&quot;,
+&quot;hex&quot; : &quot;a9149af61346ce0aa2dffcf697352b4b704c84d<br>
+cbaff87&quot;,
+&quot;reqSigs&quot; : 1,
+&quot;type&quot; : &quot;scripthash&quot;,
+&quot;addresses&quot; : [
+&quot;2N7NaqSKYQUeM8VNgBy8D9xQQbiA8yiJayk&quot;
+]
+}
+}
+]
+}</p> <blockquote><p>UTXO_VOUT=0
+UTXO_OUTPUT_SCRIPT=a9149af61346ce0aa2dffcf697352b4b704c84dcbaff87</p></blockquote> <p>We use the <a href="https://developer.bitcoin.org/reference/rpc/getrawtransaction.html" target="_blank" rel="noopener noreferrer">“getrawtransaction” RPC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> with the optional second argument (<em>true</em>) to get the decoded transaction we just created with <a href="https://developer.bitcoin.org/reference/rpc/sendtoaddress.html" target="_blank" rel="noopener noreferrer">“sendtoaddress”<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. We choose one of the outputs to be our UTXO and get its <a href="https://developer.bitcoin.org/terms.html#term-output-index" target="_blank" rel="noopener noreferrer">output index<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>number (vout) and pubkey script (scriptPubKey).</p> <p>我们使用带有可选的第二个参数(true)的“ getrawtransaction” RPC 来获取刚才用“ sendtoaddress”创建的解码事务。我们选择一个输出作为我们的 UTXO，并得到它的输出索引号(vout)和 pubkey 脚本(scriptPubKey)。</p> <blockquote><p>bitcoin-cli -regtest getnewaddress
+mxCNLtKxzgjg8yyNHeuFSXvxCvagkWdfGU
+NEW_ADDRESS4=mxCNLtKxzgjg8yyNHeuFSXvxCvagkWdfGU</p></blockquote> <p>We generate a new P2PKH address to use in the output we’re about to create.</p> <p>我们生成一个新的 P2PKH 地址用于我们将要创建的输出。</p> <h2 id="outputs-inputs-transaction-fee-so-always-double-check-your-math-4"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-4" class="header-anchor">#</a> Outputs - inputs = transaction fee, so always double-check your math!</h2> <blockquote><p>bitcoin-cli -regtest createrawtransaction '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT'
+}
+]
+''' '''
+{
+&quot;'$NEW_ADDRESS4'&quot;: 9.998
+}'''</p></blockquote> <p>010000000175e1769813db8418fea17576694af1ff31cb2b512b7333e6eb42f0<br>
+30d0d778720000000000ffffffff01c0bc973b000000001976a914b6f64f5bf3<br>
+e38f25ead28817df7929c06fe847ee88ac00000000</p> <blockquote><p>RAW_TX=010000000175e1769813db8418fea17576694af1ff31cb2b512b733[...]</p></blockquote> <p>We generate the raw transaction the same way we did in the Simple Raw Transaction subsection.</p> <p>我们生成原始事务的方法与在 Simple Raw Transaction 小节中的方法相同。</p> <blockquote><p>bitcoin-cli -regtest dumpprivkey $NEW_ADDRESS1
+cVinshabsALz5Wg4tGDiBuqEGq4i6WCKWXRQdM8RFxLbALvNSHw7
+bitcoin-cli -regtest dumpprivkey $NEW_ADDRESS3
+cNmbnwwGzEghMMe1vBwH34DFHShEj5bcXD1QpFRPHgG9Mj1xc5hq
+NEW_ADDRESS1_PRIVATE_KEY=cVinshabsALz5Wg4tGDiBuqEGq4i6WCKWXRQd[...]
+NEW_ADDRESS3_PRIVATE_KEY=cNmbnwwGzEghMMe1vBwH34DFHShEj5bcXD1Qp[...]</p></blockquote> <p>We get the private keys for two of the public keys we used to create the transaction, the same way we got private keys in the Complex Raw Transaction subsection. Recall that we created a 2-of-3 multisig pubkey script, so signatures from two private keys are needed.</p> <p>我们获得用于创建事务的两个公钥的私钥，与在 Complex Raw Transaction 小部分中获得私钥的方式相同。回想一下，我们创建了一个三分之二的 multisig pubkey 脚本，因此需要两个私钥的签名。</p> <p><img alt="Warning icon" data-src="https://developer.bitcoin.org/_images/icon_warning.svg" loading="lazy" class="lazy"> <strong>Reminder:</strong> Users should never manually manage private keys on mainnet. See the warning in the <a href="https://developer.bitcoin.org/examples/transactions.html#complex-raw-transaction" target="_blank" rel="noopener noreferrer">complex raw transaction section<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <p>提醒: 用户永远不要在主网络上手动管理私钥。请参阅复杂的原始事务部分中的警告。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $RAW_TX '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT',
+&quot;scriptPubKey&quot;: &quot;'$UTXO_OUTPUT_SCRIPT'&quot;,
+&quot;redeemScript&quot;: &quot;'$P2SH_REDEEM_SCRIPT'&quot;
+}
+]
+''' '''
+[
+&quot;'$NEW_ADDRESS1_PRIVATE_KEY'&quot;
+]'''</p></blockquote> <p>{
+&quot;hex&quot; : &quot;010000000175e1769813db8418fea17576694af1ff31cb2b512<br>
+b7333e6eb42f030d0d7787200000000b5004830450221008d5e<br>
+c57d362ff6ef6602e4e756ef1bdeee12bd5c5c72697ef1455b3<br>
+79c90531002202ef3ea04dfbeda043395e5bc701e4878c15baa<br>
+b9c6ba5808eb3d04c91f641a0c014c69522103310188e911026<br>
+cf18c3ce274e0ebb5f95b007f230d8cb7d09879d96dbeab1aff<br>
+210243930746e6ed6552e03359db521b088134652905bd2d154<br>
+1fa9124303a41e95621029e03a901b85534ff1e92c43c74431f<br>
+7ce72046060fcf7a95c37e148f78c7725553aeffffffff01c0b<br>
+c973b000000001976a914b6f64f5bf3e38f25ead28817df7929<br>
+c06fe847ee88ac00000000&quot;,
+&quot;complete&quot; : false
+}</p> <blockquote><p>PARTLY_SIGNED_RAW_TX=010000000175e1769813db8418fea17576694af1f[...]</p></blockquote> <p>We make the first signature. The input argument (JSON object) takes the additional redeem script parameter so that it can append the redeem script to the signature script after the two signatures.</p> <p>我们先签名。输入参数(JSON 对象)接受额外的赎回脚本参数，以便它可以在两个签名之后将赎回脚本附加到签名脚本。</p> <blockquote><p>bitcoin-cli -regtest signrawtransaction $PARTLY_SIGNED_RAW_TX '''
+[
+{
+&quot;txid&quot;: &quot;'$UTXO_TXID'&quot;,
+&quot;vout&quot;: '$UTXO_VOUT',
+&quot;scriptPubKey&quot;: &quot;'$UTXO_OUTPUT_SCRIPT'&quot;,
+&quot;redeemScript&quot;: &quot;'$P2SH_REDEEM_SCRIPT'&quot;
+}
+]
+''' '''
+[
+&quot;'$NEW_ADDRESS3_PRIVATE_KEY'&quot;
+]'''</p></blockquote> <p>{
+&quot;hex&quot; : &quot;010000000175e1769813db8418fea17576694af1ff31cb2b512<br>
+b7333e6eb42f030d0d7787200000000fdfd0000483045022100<br>
+8d5ec57d362ff6ef6602e4e756ef1bdeee12bd5c5c72697ef14<br>
+55b379c90531002202ef3ea04dfbeda043395e5bc701e4878c1<br>
+5baab9c6ba5808eb3d04c91f641a0c0147304402200bd8c62b9<br>
+38e02094021e481b149fd5e366a212cb823187149799a68cfa7<br>
+652002203b52120c5cf25ceab5f0a6b5cdb8eca0fd2f386316c<br>
+9721177b75ddca82a4ae8014c69522103310188e911026cf18c<br>
+3ce274e0ebb5f95b007f230d8cb7d09879d96dbeab1aff21024<br>
+3930746e6ed6552e03359db521b088134652905bd2d1541fa91<br>
+24303a41e95621029e03a901b85534ff1e92c43c74431f7ce72<br>
+046060fcf7a95c37e148f78c7725553aeffffffff01c0bc973b<br>
+000000001976a914b6f64f5bf3e38f25ead28817df7929c06fe<br>
+847ee88ac00000000&quot;,
+&quot;complete&quot; : true
+}</p> <blockquote><p>SIGNED_RAW_TX=010000000175e1769813db8418fea17576694af1ff31cb2b[...]</p></blockquote> <p>The <code>signrawtransaction</code> call used here is nearly identical to the one used above. The only difference is the private key used. Now that the two required signatures have been provided, the transaction is marked as complete.</p> <p>这里使用的 signrawtransaction 调用与上面使用的调用几乎完全相同。唯一的区别是所使用的私钥。既然已经提供了两个必需的签名，那么事务就被标记为完成。</p> <blockquote><p>bitcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX
+430a4cee3a55efb04cbb8718713cab18dea7f2521039aa660ffb5aae14ff3f50</p></blockquote> <p>We send the transaction spending the P2SH multisig output to the local node, which accepts it.</p> <p>我们将支出 P2SH multisig 输出的事务发送给接受它的本地节点。</p></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#transaction-tutorial-交易指南" title="Transaction Tutorial 交易指南[](https://developer.bitcoin.org/examples/transactions.html#transaction-tutorial &quot;Permalink to this headline&quot;)">Transaction Tutorial 交易指南[](https://developer.bitcoin.org/examples/transactions.html#transaction-tutorial &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#simple-spending-简单消费" title="Simple Spending 简单消费[](https://developer.bitcoin.org/examples/transactions.html#simple-spending &quot;Permalink to this headline&quot;)">Simple Spending 简单消费[](https://developer.bitcoin.org/examples/transactions.html#simple-spending &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#simple-raw-transaction-简单的原始事务" title="Simple Raw Transaction 简单的原始事务[](https://developer.bitcoin.org/examples/transactions.html#simple-raw-transaction &quot;Permalink to this headline&quot;)">Simple Raw Transaction 简单的原始事务[](https://developer.bitcoin.org/examples/transactions.html#simple-raw-transaction &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math" title="Outputs - inputs = transaction fee, so always double-check your math!">Outputs - inputs = transaction fee, so always double-check your math!</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#complex-raw-transaction-复杂的原始事务" title="Complex Raw Transaction 复杂的原始事务[](https://developer.bitcoin.org/examples/transactions.html#complex-raw-transaction &quot;Permalink to this headline&quot;)">Complex Raw Transaction 复杂的原始事务[](https://developer.bitcoin.org/examples/transactions.html#complex-raw-transaction &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-2" title="Outputs - inputs = transaction fee, so always double-check your math!">Outputs - inputs = transaction fee, so always double-check your math!</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#offline-signing-离线签名" title="Offline Signing 离线签名[](https://developer.bitcoin.org/examples/transactions.html#offline-signing &quot;Permalink to this headline&quot;)">Offline Signing 离线签名[](https://developer.bitcoin.org/examples/transactions.html#offline-signing &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-3" title="Outputs - inputs = transaction fee, so always double-check your math!">Outputs - inputs = transaction fee, so always double-check your math!</a></div><div class="vuepress-toc-item vuepress-toc-h3"><a href="#p2sh-multisig" title="P2SH Multisig[](https://developer.bitcoin.org/examples/transactions.html#p2sh-multisig &quot;Permalink to this headline&quot;)">P2SH Multisig[](https://developer.bitcoin.org/examples/transactions.html#p2sh-multisig &quot;Permalink to this headline&quot;)</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#outputs-inputs-transaction-fee-so-always-double-check-your-math-4" title="Outputs - inputs = transaction fee, so always double-check your math!">Outputs - inputs = transaction fee, so always double-check your math!</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8><li class="contact-item" data-v-3d9deeb8><a href="https://github.com/baryon" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-3d9deeb8><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-3d9deeb8></path></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="mailto:lilong@gmail.com" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail" data-v-3d9deeb8><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-v-3d9deeb8></path><polyline points="22,6 12,13 2,6" data-v-3d9deeb8></polyline></svg>
+          
+        </a></li><li class="contact-item" data-v-3d9deeb8><a href="https://twitter.com/lilong" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter" data-v-3d9deeb8><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" data-v-3d9deeb8></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8><li class="copyright-item" data-v-3d9deeb8><a href="/about/" class="nav-link" data-v-3d9deeb8>LI Long © 2020</a></li><li class="copyright-item" data-v-3d9deeb8><a href="/" class="nav-link" data-v-3d9deeb8>Made with ❤</a></li><li class="copyright-item" data-v-3d9deeb8><a href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-3d9deeb8>CC BY-NC-SA 2.5</a></li></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.abf5d3ec.js" defer></script><script src="/assets/js/8.ce1c8cc9.js" defer></script><script src="/assets/js/3.414e57ad.js" defer></script><script src="/assets/js/36.7824120d.js" defer></script>
+  </body>
+</html>
